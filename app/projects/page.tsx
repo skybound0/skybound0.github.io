@@ -107,6 +107,15 @@ const pastProjects: Project[] = [
     tags: ["Autodesk Fusion", "Digi XBee", "Water Ingress Protection", "Hardware Integration", "3D Printing"],
   },
   {
+    title: "Epsilon-E Automated Guideway System",
+    date: "2025",
+    description:
+      "This was designed in a team of four as part of the Spring 2025 Berkeley ASME CADathon. It is more of an exercise in CAD than anything else. It is an Overhead Hoist Transport system for moving wafers and materials in a semiconductor fab. The major innovation is the maglev motion system which uses electromagnets in the track inspired by the SCMaglev railway system. The vehicles would levitate with compressed air at low speeds. The idea is that all propulsive power and control can be offloaded to the track, allowing for much simpler and cheaper vehicles and an unified control system. Each vehicle is just a passive pod with a small battery for onboard systems. In addition, there would be negligible frictional wear, resulting in less particulates released and maintenance requirements.",
+    image: "/epsilone.png",
+    aspectRatio: "4 / 3",
+    tags: ["Autodesk Fusion"],
+  },
+  {
     title: "Homelab",
     date: "2021-2025",
     description:
