@@ -153,7 +153,7 @@ const pastProjects: Project[] = [
       </>
     ),
   image: "/miku1.JPG",
-  aspectRatio: "5 / 3",
+  aspectRatio: "4 / 3",
     tags: ["Mainsail", "Klipper", "Electronics Assembly", "Wiring Harnesses", "3D Printing"],
   },
   {
