@@ -63,6 +63,9 @@ export default function Home() {
             <Button asChild variant="outline" className="glass border-white/30 hover:bg-primary/10 hover:text-foreground">
               <Link href="/cooking">Cooking</Link>
             </Button>
+            <Button asChild variant="outline" className="glass border-white/30 hover:bg-primary/10 hover:text-foreground">
+              <Link href="/Gu_Eric_Resume_10_17_2025.pdf" target="_blank" rel="noopener noreferrer" aria-label="Open resume in new tab">Resume</Link>
+            </Button>
           </div>
         </div>
 
@@ -78,6 +81,9 @@ export default function Home() {
             </Button>
             <Button asChild variant="outline" className="glass border-white/30 hover:bg-primary/10 hover:text-foreground">
               <Link href="/cooking">Cooking</Link>
+            </Button>
+            <Button asChild variant="outline" className="glass border-white/30 hover:bg-primary/10 hover:text-foreground">
+              <Link href="/Gu_Eric_Resume_10_17_2025.pdf" target="_blank" rel="noopener noreferrer" aria-label="Open my resume in new tab">Resume</Link>
             </Button>
           </div>
         </div>
@@ -139,7 +145,7 @@ type Activity = {
   role: string;
   date: string;
   description?: string;
-  accomplishments?: string[];
+  accomplishments?: string[] | React.ReactNode[];
 };
 
 const activities: Activity[] = [
@@ -148,26 +154,37 @@ const activities: Activity[] = [
     role: "Lead Airframe Engineer",
     date: "Aug 2024 - Present",
     accomplishments: [
-      "yada yada",
-      "nada"
-    ]
+      (<>
+        Leading the hardware development and integration of{" "}
+        <a
+          href="/projects"
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="text-primary hover:underline"
+        >
+          two competition and research platforms
+        </a>
+      </>),
+      (<>
+        Designing and manufacturing a variety of structures and components using 3D printing, machining, waterjet, and more
+      </>),
+      (<>
+        Creating curriculum for and teaching a onboarding program with lectures and workshops on CAD, material science, FEA, and more
+      </>),
+      (<>
+        Producing content for and managing social media channels for outreach and recruitment
+      </>)
+    ],
   },
   {
     title: "Theoretical and Applied Fluid Dynamics Laboratory",
     role: "Undergraduate Researcher",
-    date: "May 2025 - Present",
+    date: "May 2025 - Aug 2025",
     accomplishments: [
-      "yada yada",
-      "nada"
-    ]
-  },
-  {
-    title: "Space Enterprise at Berkeley",
-    role: "Structures Team Member",
-    date: "Aug 2024 - Present",
-    accomplishments: [
-      "yada yada",
-      "nada"
+      "Designed the mechanical systems for three generations of autonomous sailboats",
+      "Integrated sailboat control boards, sensors, and actuators with with a unified, easy-to-access mounting system and electrical wiring",
+      "Developed a 0.25m diameter vertical axis wind turbine to power endurance sailboats",
+      "Worked through every part of the vehicles' development process, including manufacturing, software deployment, and testing"
     ]
   },
   {
@@ -175,8 +192,20 @@ const activities: Activity[] = [
     role: "Student Fabrication Admin",
     date: "Dec 2024 - Present",
     accomplishments: [
-      "yada yada",
-      "nada"
+      "Maintained and repaired a fleet of Prusa i3 MK3S and Bambu Labs X1C 3D printers",
+      "Developed training curriculum and trained over 40 students on fabrication equipment operation",
+      "Provided design reviews and DFM analysis for students' personal and research projects",
+      "Oversaw the acquisition of $6k in new 3D printers, including product analysis, funding petitions, training material development, and software deployment"
+    ]
+  },
+  {
+    title: "Space Enterprise at Berkeley",
+    role: "Structures Team Member",
+    date: "Aug 2024 - Present",
+    accomplishments: [
+      "Engineered thrust transfer structures for a 20 kN rocket engine, chargewells, eye bolts, and other parts",
+      "Performed FEA and hand mechanics calculations on structural components for mass optimization",
+      "Fabricated numerous components including performing fiberglass layups for composite nosecones"
     ]
   },
   {
@@ -184,17 +213,67 @@ const activities: Activity[] = [
     role: "Grade of Cadet Major. Cadet Public Affairs Officer, Cadet Aerospace Education Officer, Cadet Commander",
     date: "Aug 2018 - Aug 2024",
     accomplishments: [
-      "yada yada",
-      "nada"
+      (<>
+        Ran Public Affairs operations in support of numerous events around the country across 3 years
+      </>),
+      (<>
+        Led and mentored the Public Affairs team for the 400-attendee Winter Raptor leadership and aerospace camp for 2 consecutive years of record-breaking recruitment
+      </>),
+      (<>
+        Produced{" "}
+        <a
+          href="https://photos.cap.gov/Pacific-Region/Encampment/Winter-Raptor-VII-2023"
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="text-primary hover:underline"
+        >
+          10k+ photos
+        </a>
+        ,{" "}
+        <a
+          href="https://www.youtube.com/@winterraptorencampment"
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="text-primary hover:underline"
+        >
+          100+ hours of interviews and video
+        </a>
+        , 4 news articles, and more
+      </>),
+      (<>
+        Designed and taught a model rocketry course with 3 launches for 20 cadets
+      </>),
+      (<>
+        Led a 70-member squadron through the COVID-19 pandemic, adapting training materials and activities for online presentation
+      </>),
+      (<>
+        Awarded the Amelia Earhart Award, Oregon Wing Commander's Commendation, Air Force Association's Outstanding CAP Squadron Cadet Award, Cadet Achievement Award, and more
+      </>)
     ]
   },
   {
     title: "Naperville Central High School Science Olympiad",
     role: "Team Captain",
-    date: "Aug 2022 - May 2024",
+    date: "Aug 2020 - May 2024",
     accomplishments: [
-      "yada yada",
-      "nada"
+      (<>
+        Designed and built {" "}
+        <a
+          href="/projects"
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="text-primary hover:underline"
+        >
+          autonomous maze navigating robots
+        </a>
+        {" "} and endurance freeflight aircraft among many other systems
+      </>),
+      (<>
+        Placed in the top 3 in countless events across 4 years of regional and state competitions
+      </>),
+      (<>
+        Restructed team recruitment and training processes, boosting appicants by 20% and 9-place improvement at state competition
+      </>)
     ]
   },
   {
@@ -202,17 +281,13 @@ const activities: Activity[] = [
     role: "Team Captain",
     date: "Aug 2021 - May 2024",
     accomplishments: [
-      "yada yada",
-      "nada"
+      "Founded a team at my highschool after competing with Civil Air Patrol Squadron",
+      "Placed 3rd in state in the Open Division and 2nd in state in the All Service Division in the Platinum Tier"
     ]
   },
   {
     title: "Boy Scouts of America",
     role: "Eagle Scout",
     date: "2016 - 2023",
-    accomplishments: [
-      "yada yada",
-      "nada"
-    ]
   },
 ];

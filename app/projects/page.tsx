@@ -3,6 +3,7 @@ import AspectImage from "@/components/ui/aspect-image";
 
 type Project = {
   title: string | React.ReactNode;
+  id?: string;
   date: string;
   description: string | React.ReactNode;
   image?: string;
@@ -10,6 +11,7 @@ type Project = {
   imageHeight?: string; // Deprecated in favor of aspect ratio
   aspectRatio?: string; // CSS aspect-ratio string like "16 / 9" or "4 / 3" or "1 / 1"
   tags?: string[];
+  list?: string[];
 };
 
 const currentProjects: Project[] = [
@@ -57,6 +59,18 @@ const currentProjects: Project[] = [
     ),
     tags: ["Autodesk Inventor", "Klipper", "Motion System Design", "SLM 3D Printing", " FDM 3D Printing"],
   },
+  {
+    title: "Everything Else",
+    date: "Whenever",
+    description: "A list of projects I've been working on on and off either because I don't have money or time.",
+    list: [
+      "Turn signals and accelerometer-controlled brakelight for my bike",
+      "Optical drone tracker for autonomously filming drones",
+      "Ridge Wallet style wallet with an embedded Moto Tag",
+      "4-axis camera gimbal",
+      "Python script to shut down a shared Palworld server when no player is online",
+    ]
+  }
 ];
 
 const pastProjects: Project[] = [
@@ -71,7 +85,7 @@ const pastProjects: Project[] = [
       <>
         Designed and built a thrust vectoring VTOL vehicle around a 90mm EDF running the SingleCopter ArduPilot configuration. It flies, kinda. ArduPilot seems to handle the gyroscopic procession well enough, but I'm still working on tuning the PID and many other aspects of the software. All 3D printed parts were designed to be as easy to print as possible with minimal supports. This project was inspired by the {" "}
         <a
-          href="https://omeganaught.com/2018/08/ikarus-electric-rocket/"
+          href="https://www.youtube.com/watch?v=RMeEh5OUaDs/"
           target="_blank" 
           rel="noopener noreferrer"
           className="text-primary hover:underline"
@@ -139,7 +153,7 @@ const pastProjects: Project[] = [
       </>
     ),
   image: "/miku1.JPG",
-  aspectRatio: "4 / 3",
+  aspectRatio: "5 / 3",
     tags: ["Mainsail", "Klipper", "Electronics Assembly", "Wiring Harnesses", "3D Printing"],
   },
   {
@@ -152,7 +166,7 @@ const pastProjects: Project[] = [
     description:
       "Designed for Science Olympiad's Robot Tour event. It runs on an Arduino-style RP2040 board with cheap ultrasonic sensors, an IMU, and wheel encoders for localization and dead reckoning. I briefly experimented with optical flow sensors as well. The 3D printed chassis was designed with three goals in mind: easy access to all electronics, compact size to avoid hitting walls, and modularity to easily iterate on the hardware. It won 1st at the 2024 COD Regionals and 4th place at the ISO State competition.",
   image: "/charlotte.JPG",
-    aspectRatio: "4 / 3",
+    aspectRatio: "5 / 3",
     tags: ["C++", "Arduino", "Autodesk Inventor", "Breadboarding", "3D Printing"],
   },
   {
@@ -272,6 +286,17 @@ function ProjectCard({ project }: { project: Project }) {
         <p className="text-base leading-relaxed text-muted-foreground">
           {project.description}
         </p>
+
+        {project.list && (
+          <ul className="mt-3 space-y-1 text-sm text-muted-foreground">
+            {project.list.map((item, i) => (
+              <li key={i} className="flex gap-2">
+                <span className="text-primary">•</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );
