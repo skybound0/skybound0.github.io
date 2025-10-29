@@ -95,6 +95,8 @@ const pastProjects: Project[] = [
         {" "}project.
       </>
     ),
+    image: "/scoobert.jpg",
+    aspectRatio: "1 / 1",
     tags: ["Solidworks", "ArduPilot", "Thrust Vector Control", "3D Printing"],
   },
   {
