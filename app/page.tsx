@@ -64,7 +64,7 @@ export default function Home() {
               <Link href="/cooking">Cooking</Link>
             </Button>
             <Button asChild variant="outline" className="glass border-white/30 hover:bg-primary/10 hover:text-foreground">
-              <Link href="/Gu_Eric_Resume_10_17_2025.pdf" target="_blank" rel="noopener noreferrer" aria-label="Open resume in new tab">Resume</Link>
+              <Link href="/Gu_Eric_Resume_3_20_2026.pdf" target="_blank" rel="noopener noreferrer" aria-label="Open resume in new tab">Resume</Link>
             </Button>
           </div>
         </div>
