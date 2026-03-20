@@ -177,6 +177,11 @@ const activities: Activity[] = [
     ],
   },
   {
+    title: "Open Computing Facility",
+    role: "Board of Directors, Technical Operations Staff",
+    date: "January 2026 - Present",
+  },
+  {
     title: "Theoretical and Applied Fluid Dynamics Laboratory",
     role: "Undergraduate Researcher",
     date: "May 2025 - Aug 2025",
