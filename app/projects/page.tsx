@@ -19,17 +19,26 @@ const currentProjects: Project[] = [
     title: "Modular Transportable Quadcopter Platform",
     date: "Ongoing",
     description:
-      "I'm developing the structures for an autonomous test bed vehicle with UAVs@Berkeley. It features a modular carbon fiber airframe that packs down into the size of an airline personal item luggage despite its 1.1m motor-to-motor span. Eventually, it will be capable of target localization, aerial mapping, and payload pickup and delivery. It will also be the first vehicle to use our new in-house flight controller and custom battery packs.",
+      "I designed the airframe of two generations of a quadcopter platform for UAVs@Berkeley. The vehicle is meant to serve as a high-usability testbed, being easily packable into just an airline personal item-sized bag. It also features a modular mounting system to carry the various payloads for the C-UASC competition, as well as for research and aerial videography.",
   image: "/quad.png",
-  aspectRatio: "2 / 1",
+  aspectRatio: "16 / 9",
     tags: ["Autodesk Fusion", "Ansys Structures", "Composites", "Waterjet", "3D Printing"],
   },
   {
     title: "Tailsitter VTOL Quadcopter",
     date: "Ongoing",
     description:
-      "I'm leading the research and development of a high performance VTOL vehicle with UAVs@Berkeley. Designed for the RoboNation SUAS and C-UASC competitions, it is meant to be fast and efficient in forward flight while still retaining the fast transition and maneuverability of a quadcopter. It will be our first vehicle to involve custom CNC wings and a carbon fiber layup fuselage.",
+      "I'm leading the research and development of a high performance VTOL vehicle with UAVs@Berkeley. It is a tailsitter meant for reasonably efficient forward flight while retaining high maneuverability. It's also designed to fly 20+ miles on a single battery. It is our first vehicle to use custom wings and a carbon fiber layup fuselage.",
     tags: ["Autodesk Fusion", "Ansys Structures", "Composite Fiber Layups", "Vehicle Dynamics", "3D Printing"],
+  },
+  {
+    title: "Word Game Robot",
+    date: "Ongoing",
+    description:
+      "My friend and I struggle to beat another friend at the word games on GamePigeon, so we're building a CoreXY stylus-manipulator to do it for us. It uses OpenCV to read the phone screen, Python scripts to do the math, and Klipper to control the motion. The end goal is to expand it to other games as well, like 8-Ball or even general mobile games.",
+  image: "/wgr.png",
+  aspectRatio: "3 / 2",
+    tags: ["Autodesk Fusion", "OpenCV", "Python", "Klipper", "Motion System Design", "3D Printing"],
   },
   {
     title: "Auto-Bed Clearing 3D Printer",
@@ -66,9 +75,7 @@ const currentProjects: Project[] = [
     list: [
       "Turn signals and accelerometer-controlled brakelight for my bike",
       "Optical drone tracker for autonomously filming drones",
-      "Ridge Wallet style wallet with an embedded Moto Tag",
-      "4-axis camera gimbal",
-      "Python script to shut down a shared Palworld server when no player is online",
+      "5-axis camera dolly",
     ]
   }
 ];
@@ -77,7 +84,7 @@ const pastProjects: Project[] = [
   {
     title: (
       <>
-        Thrust Vector Controlled Electric Ducted Fan Drone "Scoobert"
+        Thrust Vector Controlled Electric Ducted Fan Drone
       </>
     ),
     date: "2025",
@@ -102,13 +109,14 @@ const pastProjects: Project[] = [
   {
     title: (
       <>
-        Autonomous Research Sailboats "TINA", "BOB", and "BOBneo"
+        Autonomous Endurance Research Sailboats
       </>
     ),
     date: "2025",
     description: (
       <>
         These boats were my work at the Theoretical and Applied Fluid Dynamics Laboratory at UC Berkeley under Professor Reza Alam. I designed the mechanical architecture and all individual components for three generations of autonomous sailboats.
+        I also performed electrical and software integration, manufacturing extensive testing, and deployment management.
         The boats operate in a mesh network, communicating with each other and a ground station to collect oceanic data over a large area.
         They generally feature the same overall design with a single 2ft ABS tube hull, a large vertical airfoil sail, and a weighted keel for stability.
         The first generation, TINA, was based on the lab's past designs but with improvements to usability and DFM for 3D printing, plus new mounts for a new generation of custom electronics and control systems. In addition, a new sail shaft sealing system and epoxy-coated manufacturing process practically eliminated previous leakage issues.
@@ -147,11 +155,10 @@ const pastProjects: Project[] = [
     date: "2024",
     description: (
       <>
-        I wanted a 3D printer that I could bring to college, so I self-sourced and built a modified 350mm Voron 2 printer.
+        I wanted a 3D printer that I could bring to college, so I self-sourced and built a modified 350mm Voron 2.4 printer.
         It's been upgraded many times since first being built, including a Beacon probe, XOL toolhead, Papilio beltdrive extruder, and StealthMax air filter.
         I designed quite a few custom parts for it, including a gantry mounted nozzle wiper, filament runout sensor, and various mounts for all the doodads I've put on it.
         This printer even survived my dorm room getting flooded when my roommate broke a fire sprinkler.
-        I've considered upgrading it even more with a 4040 frame and Monolith gantry, but I think I'll put my resources towards the brand new auto-bed clearing design I'm working on instead.
       </>
     ),
   image: "/miku1.JPG",
@@ -161,7 +168,7 @@ const pastProjects: Project[] = [
   {
     title: (
       <>
-        Maze Navigating Robot "Charlotte"
+        Autonomous Maze Navigating Robot
       </>
     ),
     date: "2024",
