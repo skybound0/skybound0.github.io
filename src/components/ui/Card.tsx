@@ -7,7 +7,7 @@ const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElemen
 		<div
 			ref={ref}
 			className={cn(
-				'bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm',
+				'bg-card/78 text-card-foreground flex flex-col gap-6 rounded-2xl border border-border py-6 shadow-[0_14px_48px_oklch(4%_0.01_260_/_0.32)] backdrop-blur-xl',
 				className
 			)}
 			{...props}
@@ -52,4 +52,26 @@ const CardDescription = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
 );
 CardDescription.displayName = 'CardDescription';
 
-export { Card, CardHeader, CardTitle, CardDescription };
+const CardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+	({ className, ...props }, ref) => (
+		<div
+			ref={ref}
+			className={cn('px-6', className)}
+			{...props}
+		/>
+	)
+);
+CardContent.displayName = 'CardContent';
+
+const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+	({ className, ...props }, ref) => (
+		<div
+			ref={ref}
+			className={cn('px-6 pt-1 pb-1', className)}
+			{...props}
+		/>
+	)
+);
+CardFooter.displayName = 'CardFooter';
+
+export { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter };

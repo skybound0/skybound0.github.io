@@ -261,11 +261,12 @@ for (const node of nodes) {
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    border: 1px solid oklch(28% 0.018 252 / 0.92);
     background:
-      radial-gradient(circle at 50% 45%, rgba(80, 160, 255, 0.18), transparent 52%),
-      radial-gradient(circle at 70% 70%, rgba(255, 160, 90, 0.14), transparent 46%),
-      linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.01));
+      radial-gradient(circle at 50% 45%, oklch(59% 0.07 246 / 0.2), transparent 56%),
+      radial-gradient(circle at 18% 72%, oklch(56% 0.06 174 / 0.16), transparent 48%),
+      radial-gradient(circle at 84% 78%, oklch(58% 0.068 292 / 0.16), transparent 44%),
+      linear-gradient(145deg, oklch(25% 0.02 246 / 0.7), oklch(17% 0.015 260 / 0.86));
     backdrop-filter: blur(16px);
     z-index: 0;
     pointer-events: none;
@@ -313,7 +314,7 @@ for (const node of nodes) {
   .activity-node:hover .node-core,
   .activity-node:focus-visible .node-core {
     transform: scale(1.08);
-    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.28));
+    filter: drop-shadow(0 12px 24px oklch(4% 0.01 260 / 0.42));
   }
 
   .node-fallback {
@@ -325,7 +326,7 @@ for (const node of nodes) {
     font-size: clamp(0.72rem, 0.52rem + 0.45vw, 0.95rem);
     font-weight: 700;
     letter-spacing: 0.04em;
-    color: rgba(255, 255, 255, 0.9);
+    color: oklch(95% 0.01 252 / 0.95);
   }
 
   .node-tooltip {
@@ -335,8 +336,10 @@ for (const node of nodes) {
     transform: translate(-50%, 4px);
     width: min(14rem, 76vw);
     border-radius: 0.9rem;
-    border: 1px solid rgba(255, 255, 255, 0.24);
-    background: rgba(10, 16, 26, 0.94);
+    border: 1px solid oklch(32% 0.02 252 / 0.95);
+    background:
+      radial-gradient(circle at 84% 0%, oklch(58% 0.068 292 / 0.1), transparent 42%),
+      linear-gradient(162deg, oklch(22% 0.02 248 / 0.94), oklch(15% 0.015 260 / 0.96));
     padding: 0.65rem 0.75rem;
     pointer-events: none;
     opacity: 0;
@@ -387,7 +390,7 @@ for (const node of nodes) {
     position: absolute;
     left: 0;
     top: 0;
-    color: rgba(255, 255, 255, 0.62);
+    color: oklch(77% 0.03 248 / 0.7);
   }
 
   .activity-node:hover .node-tooltip,

@@ -1,8 +1,9 @@
 ---
 import RootLayout from '../layouts/RootLayout.astro';
-import { Button } from '../components/ui/Button';
+import { buttonVariants } from '../components/ui/Button';
 import { getCollection } from 'astro:content';
 import ActivityGraph from '../components/ActivityGraph.astro';
+import { Linkedin, Mail } from 'lucide-react';
 
 const activities = await getCollection('activities');
 const buddyBox = await getCollection('buddyBox');
@@ -12,11 +13,10 @@ const buddyBoxData = buddyBox[0]?.data;
 <RootLayout title="Eric Gu" description="Projects, cooking, and more">
   <div class="page-container-home">
     <section
-      class="relative grid grid-cols-[auto,1fr] sm:flex sm:flex-row gap-6 sm:gap-8 items-start mb-16 glass-strong rounded-[2rem] p-6 sm:p-8 backdrop-blur-3xl"
-      style="background: rgba(255, 255, 255, 0.02)"
+      class="relative grid grid-cols-[auto,1fr] sm:flex sm:flex-row gap-6 sm:gap-8 items-start mb-16 glass-strong rounded-[2rem] p-6 sm:p-8"
     >
       <div class="relative z-10 flex-shrink-0">
-        <div class="w-28 h-28 sm:w-32 sm:h-32 relative rounded-full overflow-hidden border border-white/30">
+        <div class="w-28 h-28 sm:w-32 sm:h-32 relative rounded-full overflow-hidden border border-border shadow-[0_10px_34px_oklch(6%_0.01_260_/_0.45)]">
           <img src="/pfp2.png" alt="Eric Gu" class="w-full h-full object-cover" />
         </div>
       </div>
@@ -25,11 +25,11 @@ const buddyBoxData = buddyBox[0]?.data;
         <h1 class="text-3xl sm:text-4xl font-bold mb-3 sm:mb-4 gradient-text">Eric Gu</h1>
 
         <div class="flex gap-4 mb-4">
-          <a href="https://www.linkedin.com/in/eric-t-gu/" target="_blank" rel="noopener noreferrer" class="text-muted-foreground hover:text-primary transition-colors" aria-label="LinkedIn">
-            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"></path></svg>
+          <a href="https://www.linkedin.com/in/eric-t-gu/" target="_blank" rel="noopener noreferrer" class="text-muted-foreground hover:text-foreground" aria-label="LinkedIn">
+            <Linkedin className="size-7" aria-hidden="true" />
           </a>
-          <a href="mailto:eric.gu@berkeley.edu" class="text-muted-foreground hover:text-primary transition-colors" aria-label="Email">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+          <a href="mailto:eric.gu@berkeley.edu" class="text-muted-foreground hover:text-foreground" aria-label="Email">
+            <Mail className="size-7" aria-hidden="true" />
           </a>
         </div>
 
@@ -40,9 +40,9 @@ const buddyBoxData = buddyBox[0]?.data;
         </div>
 
         <div class="hidden sm:flex gap-3 sm:gap-4">
-          <Button asChild variant="default" className="bg-primary/20 hover:bg-primary/30 border border-primary/30"><a href="/projects">Projects</a></Button>
-          <Button asChild variant="outline" className="border-white/30 hover:bg-primary/10"><a href="/cooking">Cooking</a></Button>
-          <Button asChild variant="outline" className="border-white/30 hover:bg-primary/10"><a href="/Gu_Eric_Resume_3_20_2026.pdf" target="_blank" rel="noopener noreferrer">Resume</a></Button>
+          <a href="/projects" class={buttonVariants({ variant: 'project' })}>Projects</a>
+          <a href="/cooking" class={buttonVariants({ variant: 'outline' })}>Cooking</a>
+          <a href="/Gu_Eric_Resume_3_20_2026.pdf" target="_blank" rel="noopener noreferrer" class={buttonVariants({ variant: 'outline' })}>Resume</a>
         </div>
       </div>
 
@@ -51,9 +51,9 @@ const buddyBoxData = buddyBox[0]?.data;
         <p><em>University of California, Berkeley</em>, '28</p>
         <p>I enjoy all things mechatronics, including robots, drones, and 3D printers!</p>
         <div class="mt-3 flex gap-3">
-          <Button asChild variant="default" className="bg-primary/20 hover:bg-primary/30 border border-primary/30"><a href="/projects">Projects</a></Button>
-          <Button asChild variant="outline" className="border-white/30 hover:bg-primary/10"><a href="/cooking">Cooking</a></Button>
-          <Button asChild variant="outline" className="border-white/30 hover:bg-primary/10"><a href="/Gu_Eric_Resume_3_20_2026.pdf" target="_blank" rel="noopener noreferrer">Resume</a></Button>
+          <a href="/projects" class={buttonVariants({ variant: 'project' })}>Projects</a>
+          <a href="/cooking" class={buttonVariants({ variant: 'outline' })}>Cooking</a>
+          <a href="/Gu_Eric_Resume_3_20_2026.pdf" target="_blank" rel="noopener noreferrer" class={buttonVariants({ variant: 'outline' })}>Resume</a>
         </div>
       </div>
     </section>
