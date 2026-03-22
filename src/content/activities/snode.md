@@ -1,8 +1,10 @@
 ---
-title: Supernode Makerspace
+organization: Supernode
 role: Student Fabrication Admin
-organization: Supernode Makerspace
 date: Dec 2024 - Present
+website: https://supernode.berkeley.edu/
+logo: snodelogo2.png
+logoAlt: Supernode Logo
 #accomplishments:
 #  - Maintained and repaired a fleet of Prusa i3 MK3S #and Bambu Labs X1C 3D printers
 #  - Developed training curriculum and trained over 40 #students on fabrication equipment operation

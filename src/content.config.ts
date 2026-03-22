@@ -22,12 +22,13 @@ const projects = defineCollection({
 const activities = defineCollection({
 	loader: glob({ base: './src/content/activities', pattern: '*.md' }),
 	schema: z.object({
-		title: z.string(),
-		role: z.string(),
 		organization: z.string(),
+		role: z.string(),
 		date: z.string(),
-		description: z.string().optional(),
-		accomplishments: z.array(z.string()).optional(),
+		website: z.string().url(),
+		logo: z.string().optional(),
+		logoAlt: z.string().optional(),
+		notes: z.array(z.string()).optional(),
 	}),
 });
 

@@ -2,7 +2,7 @@
 import RootLayout from '../layouts/RootLayout.astro';
 import { Button } from '../components/ui/Button';
 import { getCollection } from 'astro:content';
-import ActivityCard from '../components/ActivityCard.astro';
+import ActivityGraph from '../components/ActivityGraph.astro';
 
 const activities = await getCollection('activities');
 const buddyBox = await getCollection('buddyBox');
@@ -61,9 +61,9 @@ const buddyBoxData = buddyBox[0]?.data;
     <div class="separator-gradient mb-12"></div>
 
     <section>
-      <h2 class="section-title">Activities</h2>
-      <div class="space-y-8">
-        {activities.length > 0 ? activities.map((activity) => <ActivityCard activity={activity} />) : <p class="text-muted-foreground">No activities loaded yet.</p>}
+      <h2 class="section-title">What I'm Involved In</h2>
+      <div class="mx-auto w-full max-w-[36rem]">
+        <ActivityGraph activities={activities} />
       </div>
     </section>
 

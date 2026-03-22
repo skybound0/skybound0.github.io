@@ -1,8 +1,17 @@
 ---
-title: Civil Air Patrol
-role: Grade of Cadet Major. Cadet Public Affairs Officer, Cadet Aerospace Education Officer, Cadet Commander
 organization: Civil Air Patrol
+role: Cadet Major
 date: Aug 2018 - Aug 2024
+website: https://www.gocivilairpatrol.com/
+logo: caplogo.png
+logoAlt: Civil Air Patrol Command Emblem
+notes:
+  - Cadet Commander, Col. Shorty Powers Comp. Sq., 2021-2023
+  - Cadet Public Affairs OIC, Winter Raptor VI
+  - Wing Commander's Commendation
+  - CAP Achievement Award
+  - Amelia Earhart Award
+  - AFA Squadron Cadet of the Year
 #accomplishments:
 #  - Ran Public Affairs operations in support of #numerous events around the country across 3 years
 #  - Led and mentored the Public Affairs team for the #400-attendee Winter Raptor leadership and aerospace #camp for 2 consecutive years of record-breaking #recruitment
