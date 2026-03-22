@@ -1,0 +1,83 @@
+---
+import '../styles/globals.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = 'Eric Gu', description = 'Projects, cooking, and more' } =
+	Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="dark">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+	</head>
+	<body>
+		<nav
+			class="fixed top-0 left-0 right-0 z-50 backdrop-blur-3xl border-b border-white/10"
+			style="background: rgba(255, 255, 255, 0.015)"
+		>
+			<div class="container mx-auto px-4 py-3 sm:py-4 flex items-center justify-between">
+				<a href="/" class="text-2xl font-bold gradient-text">Eric Gu</a>
+
+				{/* Desktop Navigation */}
+				<div class="hidden sm:flex items-center gap-1">
+					<a
+						href="/"
+						class="px-4 py-2 text-sm font-medium hover:bg-primary/15 rounded-md transition-colors"
+					>
+						Home
+					</a>
+					<a
+						href="/projects"
+						class="px-4 py-2 text-sm font-medium hover:bg-primary/15 rounded-md transition-colors"
+					>
+						Projects
+					</a>
+					<a
+						href="/cooking"
+						class="px-4 py-2 text-sm font-medium hover:bg-primary/15 rounded-md transition-colors"
+					>
+						Cooking
+					</a>
+				</div>
+
+				{/* Mobile Navigation */}
+				<div class="sm:hidden flex items-center gap-4 text-sm">
+					<a href="/" class="text-muted-foreground hover:text-primary transition-colors">
+						Home
+					</a>
+					<a href="/projects" class="text-muted-foreground hover:text-primary transition-colors">
+						Projects
+					</a>
+					<a href="/cooking" class="text-muted-foreground hover:text-primary transition-colors">
+						Cooking
+					</a>
+				</div>
+			</div>
+		</nav>
+
+		<main class="pt-20">
+			<slot />
+		</main>
+
+		{/* Footer */}
+		<footer
+			class="backdrop-blur-3xl border-t border-white/10 mt-16"
+			style="background: rgba(255, 255, 255, 0.015)"
+		>
+			<div class="container mx-auto px-4 py-6">
+				<div class="flex items-center justify-center gap-8 text-base text-muted-foreground">
+					<div class="text-center">© 2025 Eric Gu</div>
+				</div>
+			</div>
+		</footer>
+	</body>
+</html>

@@ -33,18 +33,16 @@ jobs:
         run: npm run build:ci
 
       - name: Add .nojekyll
-        run: |
-          mkdir -p out
-          echo > out/.nojekyll
+        run: echo > dist/.nojekyll
 
       - name: Write CNAME (optional)
         run: |
           if [ -f CNAME ]; then
-            cp CNAME out/CNAME
+            cp CNAME dist/CNAME
           elif [ -f .github/CNAME ]; then
-            cp .github/CNAME out/CNAME
+            cp .github/CNAME dist/CNAME
           elif [ -f .github/workflows/CNAME ]; then
-            cp .github/workflows/CNAME out/CNAME
+            cp .github/workflows/CNAME dist/CNAME
           fi
 
       - name: Configure Pages
@@ -53,7 +51,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: out
+          path: dist
 
   deploy:
     environment:

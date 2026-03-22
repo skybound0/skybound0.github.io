@@ -1,0 +1,109 @@
+{
+  "photos": [
+    {
+      "src": "/raspmatchamochi.jpg",
+      "caption": "Raspberry mochi butter cake with matcha glaze",
+      "aspectRatio": "4 / 5"
+    },
+    {
+      "src": "/genericpasta.jpg",
+      "caption": "Generic chicken stock and tomato sauce pasta",
+      "aspectRatio": "3 / 4"
+    },
+    {
+      "src": "/ubecoconutmochi.jpg",
+      "caption": "Ube coconut mochi butter cake. Currently my favorite recipe ever.",
+      "aspectRatio": "4 / 5"
+    },
+    {
+      "src": "/tonkatsu.jpg",
+      "caption": "Tonkatsu",
+      "aspectRatio": "4 / 5"
+    },
+    {
+      "src": "/millecrepecake.jpg",
+      "caption": "Matcha mille crepe cake",
+      "aspectRatio": "4 / 5"
+    },
+    {
+      "src": "/ubetart.jpg",
+      "caption": "Ube tart",
+      "aspectRatio": "1 / 1"
+    },
+    {
+      "src": "/kfc.jpg",
+      "caption": "Korean fried chicken with random gochujang sauce",
+      "aspectRatio": "4 / 5"
+    },
+    {
+      "src": "/onigiri.jpg",
+      "caption": "Tuna mayo and salmon rice onigiri",
+      "aspectRatio": "1 / 1"
+    },
+    {
+      "src": "/honeygarlicchicken.jpg",
+      "caption": "Soy honey garlic chicken",
+      "aspectRatio": "4 / 5"
+    },
+    {
+      "src": "/eggtart.jpg",
+      "caption": "Egg tart croissants",
+      "aspectRatio": "4 / 5"
+    },
+    {
+      "src": "/matchabasquecheesecake.jpg",
+      "caption": "Matcha basque cheesecake",
+      "aspectRatio": "4 / 5"
+    },
+    {
+      "src": "/marrymechickenpasta.jpg",
+      "caption": "Marry me chicken pasta",
+      "aspectRatio": "4 / 5"
+    },
+    {
+      "src": "/bobacake.jpg",
+      "caption": "Brown sugar boba cake",
+      "aspectRatio": "4 / 5"
+    },
+    {
+      "src": "/frenchoniongrilledcheese.jpg",
+      "caption": "French onion grilled cheese",
+      "aspectRatio": "3 / 4"
+    },
+    {
+      "src": "/hongshaorou.jpg",
+      "caption": "Red braised pork belly",
+      "aspectRatio": "4 / 5"
+    },
+    {
+      "src": "/matchatiramisu.jpg",
+      "caption": "Matcha tiramisu",
+      "aspectRatio": "4 / 5"
+    },
+    {
+      "src": "/blueberrycheesecake.jpg",
+      "caption": "Blueberry cheesecake",
+      "aspectRatio": "4 / 5"
+    },
+    {
+      "src": "/ubehalayajam.jpg",
+      "caption": "Ube halaya jam",
+      "aspectRatio": "4 / 5"
+    },
+    {
+      "src": "/tteokbokki.jpg",
+      "caption": "Tteokbokki",
+      "aspectRatio": "4 / 5"
+    },
+    {
+      "src": "/threelayermatcha.jpg",
+      "caption": "Three layer matcha cheesecake",
+      "aspectRatio": "4 / 5"
+    },
+    {
+      "src": "/pulledpork.jpg",
+      "caption": "Pulled pork",
+      "aspectRatio": "4 / 5"
+    }
+  ]
+}

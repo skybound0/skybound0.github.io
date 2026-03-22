@@ -1,0 +1,62 @@
+---
+import RootLayout from '../../layouts/RootLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+	const projects = await getCollection('projects');
+	return projects.map((project) => ({
+		params: { slug: project.id.replace(/\.md$/, '') },
+		props: { project },
+	}));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const projectImages = project.data.images?.length ? project.data.images : project.data.image ? [project.data.image] : [];
+const imageAspectRatio = project.data.imageAspectRatio || project.data.cardAspectRatio || '16 / 9';
+---
+
+<RootLayout title={`${project.data.title} | Projects`} description={project.data.description || 'Project details'}>
+	<div class="page-container">
+		<a href="/projects" class="text-sm text-primary hover:underline">← Back to projects</a>
+
+		<div class="mt-6 rounded-[2rem] border border-white/10 p-5 sm:p-8 glass-strong" style="background: rgba(255, 255, 255, 0.02)">
+			<div class="mb-4 text-center">
+				<h1 class="text-3xl sm:text-4xl font-bold gradient-text">{project.data.title}</h1>
+				<span class="text-muted-foreground text-sm">{project.data.date}</span>
+			</div>
+
+			{project.data.tags && project.data.tags.length > 0 && (
+				<div class="flex flex-wrap justify-center gap-2 mb-6">
+					{project.data.tags.map((tag) => (
+						<a href={`/projects?tag=${encodeURIComponent(tag)}`} class="px-3 py-1 text-xs rounded-full border border-primary/30 bg-primary/10 text-primary hover:bg-primary/20">
+							{tag}
+						</a>
+					))}
+				</div>
+			)}
+
+			{projectImages.length > 0 && (
+				<div class="space-y-4 mb-8">
+					{projectImages.map((image, index) => (
+						<div class="relative w-full overflow-hidden rounded-xl border border-white/10" style={`aspect-ratio: ${imageAspectRatio};`}>
+							<img src={image} alt={`${project.data.title} image ${index + 1}`} class="w-full h-full object-cover" />
+						</div>
+					))}
+				</div>
+			)}
+
+			<article class="prose prose-invert max-w-none prose-headings:text-foreground prose-a:text-primary">
+				<Content />
+			</article>
+
+			{project.data.list && project.data.list.length > 0 && (
+				<ul class="mt-6 space-y-1 text-muted-foreground">
+					{project.data.list.map((item) => (
+						<li class="flex gap-2"><span class="text-primary">•</span><span>{item}</span></li>
+					))}
+				</ul>
+			)}
+		</div>
+	</div>
+</RootLayout>

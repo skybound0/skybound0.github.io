@@ -1,0 +1,57 @@
+---
+import RootLayout from '../layouts/RootLayout.astro';
+import { getCollection } from 'astro:content';
+import ProjectFilterGrid from '../components/ProjectFilterGrid';
+
+const projects = (await getCollection('projects')).filter((project) => !project.data.draft);
+
+function parseDateForSort(date: string) {
+	const normalized = date.toLowerCase();
+	const years = [...date.matchAll(/\d{4}/g)].map((match) => Number(match[0]));
+
+	if (normalized.includes('ongoing') || normalized.includes('present') || normalized.includes('current')) {
+		return { bucket: -1, endYear: Number.POSITIVE_INFINITY, startYear: Number.POSITIVE_INFINITY };
+	}
+
+	if (years.length > 0) {
+		return {
+			bucket: 0,
+			endYear: years[years.length - 1],
+			startYear: years[0],
+		};
+	}
+
+	return { bucket: 1, endYear: Number.NEGATIVE_INFINITY, startYear: Number.NEGATIVE_INFINITY };
+}
+
+projects.sort((a, b) => {
+	const first = parseDateForSort(a.data.date);
+	const second = parseDateForSort(b.data.date);
+
+	if (first.bucket !== second.bucket) return first.bucket - second.bucket;
+	if (first.endYear !== second.endYear) return second.endYear - first.endYear;
+	if (first.startYear !== second.startYear) return second.startYear - first.startYear;
+
+	return a.data.title.localeCompare(b.data.title);
+});
+
+const mappedProjects = projects.map((project) => ({
+	title: project.data.title,
+	slug: project.id.replace(/\.md$/, ''),
+	date: project.data.date,
+	description: project.data.description,
+	image: project.data.images?.[0] || project.data.image,
+	imageAspectRatio: project.data.imageAspectRatio || project.data.cardAspectRatio,
+	tags: project.data.tags || [],
+}));
+
+const initialTag = Astro.url.searchParams.get('tag') || '';
+---
+
+<RootLayout title="Projects | Eric Gu" description="What I've been working on">
+	<div class="page-container-narrow">
+		<h1 class="page-title">Projects</h1>
+		<p class="page-subtitle">What I've been working on</p>
+		<ProjectFilterGrid client:load projects={mappedProjects} initialTag={initialTag} />
+	</div>
+</RootLayout>

@@ -1,5 +1,9 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# Astro
+dist/
+.astro/
+
 # dependencies
 /node_modules
 /.pnp
@@ -13,16 +17,16 @@
 # testing
 /coverage
 
-# next.js
-/.next/
-/out/
-
 # production
 /build
+
+# vite
+.vite/
 
 # misc
 .DS_Store
 *.pem
+.turbo/
 
 # debug
 npm-debug.log*
@@ -32,10 +36,29 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
-# vercel
-.vercel
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
 
-# typescript
+# OS
+Thumbs.db
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# TypeScript
 *.tsbuildinfo
-next-env.d.ts

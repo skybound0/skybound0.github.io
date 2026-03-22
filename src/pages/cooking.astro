@@ -1,0 +1,13 @@
+---
+import RootLayout from '../layouts/RootLayout.astro';
+import PhotoGrid from '../components/PhotoGrid.astro';
+import cookingData from '../data/cooking.json';
+---
+
+<RootLayout title="Cooking | Eric Gu" description="I cook because I enjoy eating">
+	<div class="page-container-wide">
+		<h1 class="page-title">Cooking</h1>
+		<p class="page-subtitle">I cook because I enjoy eating</p>
+		<PhotoGrid photos={cookingData.photos} />
+	</div>
+</RootLayout>
