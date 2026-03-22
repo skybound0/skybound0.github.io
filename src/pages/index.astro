@@ -17,7 +17,17 @@ const buddyBoxData = buddyBox[0]?.data;
     >
       <div class="relative z-10 flex-shrink-0">
         <div class="w-28 h-28 sm:w-32 sm:h-32 relative rounded-full overflow-hidden border border-border shadow-[0_10px_34px_oklch(6%_0.01_260_/_0.45)]">
-          <img src="/pfp2.png" alt="Eric Gu" class="w-full h-full object-cover" />
+          <img
+            src="/pfp2.png"
+            alt="Eric Gu"
+            width="512"
+            height="512"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+            sizes="(max-width: 640px) 112px, 128px"
+            class="w-full h-full object-cover"
+          />
         </div>
       </div>
 
@@ -83,7 +93,16 @@ const buddyBoxData = buddyBox[0]?.data;
                 title={item.alt}
               >
                 <div class="w-[158px] sm:w-[176px]" style="aspect-ratio: 88 / 31;">
-                  <img src={item.image} alt={item.alt} class="w-full h-full object-contain" />
+                  <img
+                    src={item.image}
+                    alt={item.alt}
+                    width="176"
+                    height="62"
+                    loading="lazy"
+                    decoding="async"
+                    sizes="(max-width: 640px) 158px, 176px"
+                    class="w-full h-full object-contain"
+                  />
                 </div>
               </a>
             ))}

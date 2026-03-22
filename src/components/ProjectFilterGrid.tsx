@@ -3,6 +3,7 @@
 import { useMemo, useState } from 'react';
 import { Button } from './ui/Button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/Card';
+import { getDimensionsFromAspectRatio } from '../lib/image';
 
 type Project = {
 	title: string;
@@ -42,6 +43,10 @@ export default function ProjectFilterGrid({ projects, initialTag = '' }: Props) 
 
 			<div className="grid grid-cols-1 gap-6">
 				{filteredProjects.map((project) => (
+					(() => {
+						const imageDimensions = getDimensionsFromAspectRatio(project.imageAspectRatio, 1400);
+
+						return (
 					<Card
 						key={project.slug}
 						className="group overflow-hidden border-border bg-card/66 py-0 transition-colors hover:border-primary/40 hover:bg-card/88"
@@ -55,6 +60,11 @@ export default function ProjectFilterGrid({ projects, initialTag = '' }: Props) 
 									<img
 										src={project.image}
 										alt={project.title}
+										width={imageDimensions.width}
+										height={imageDimensions.height}
+										loading="lazy"
+										decoding="async"
+										sizes="(max-width: 768px) 100vw, 900px"
 										className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
 									/>
 								</div>
@@ -100,6 +110,8 @@ export default function ProjectFilterGrid({ projects, initialTag = '' }: Props) 
 							))}
 						</CardFooter>
 					</Card>
+						);
+					})()
 				))}
 			</div>
 		</div>
