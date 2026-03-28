@@ -1,5 +1,8 @@
 ---
 items:
+  - image: /leelee.png
+    link: https://leeleexs.carrd.co/
+    alt: leelee
   - image: /blakeh.gif
     link: https://blakehaug.com
     alt: Blake Haug
