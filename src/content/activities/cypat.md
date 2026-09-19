@@ -6,8 +6,7 @@ website: https://www.uscyberpatriot.org/
 logo: cypatlogo.png
 logoAlt: CyberPatriot Logo
 notes:
-  - 2nd in state in All Service Division, Platinum Tier, 2022-2023
-  - 3rd in state in Open Division, Platinum Tier, 2024
+  - Competed in the Platinum tier in the All Service Division (2022-2023, 2nd in state) and the Open Division (2024, 3rd in state)
 #accomplishments:
 #  - Founded a team at my highschool after competing #with Civil Air Patrol Squadron
 #  - Placed 3rd in state in the Open Division and 2nd in #state in the All Service Division in the Platinum Tier

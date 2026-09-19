@@ -5,6 +5,8 @@ date: Dec 2024 - Present
 website: https://supernode.berkeley.edu/
 logo: snodelogo2.png
 logoAlt: Supernode Logo
+notes:
+  - We are the only engineering makerspace that is open access to all Berkeley affiliates for free. I work on the 3D printers and related infra.
 #accomplishments:
 #  - Maintained and repaired a fleet of Prusa i3 MK3S #and Bambu Labs X1C 3D printers
 #  - Developed training curriculum and trained over 40 #students on fabrication equipment operation

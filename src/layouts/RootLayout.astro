@@ -12,7 +12,7 @@ const isHome = Astro.url.pathname === '/';
 ---
 
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -22,27 +22,26 @@ const isHome = Astro.url.pathname === '/';
 		<link rel="shortcut icon" href="/favicon.ico" />
 	<body>
 		{!isHome && <nav
-			class="fixed top-0 left-0 right-0 z-50 border-b border-border backdrop-blur-3xl"
-			style="background: linear-gradient(180deg, oklch(15% 0.015 255 / 0.9), oklch(14% 0.013 255 / 0.68));"
+			class="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background"
 		>
 			<div class="container mx-auto px-4 py-3 sm:py-4 flex items-center justify-center">
 				{/* Desktop Navigation */}
 				<div class="hidden sm:flex items-center gap-1">
 					<a
 						href="/"
-						class="px-4 py-2 text-sm font-medium rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/60"
+						class="px-4 py-2 text-sm font-medium rounded-md text-muted-foreground hover:text-foreground hover:bg-muted"
 					>
 						Home
 					</a>
 					<a
 						href="/projects"
-						class="px-4 py-2 text-sm font-medium rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/60"
+						class="px-4 py-2 text-sm font-medium rounded-md text-muted-foreground hover:text-foreground hover:bg-muted"
 					>
 						Projects
 					</a>
 					<a
 						href="/cooking"
-						class="px-4 py-2 text-sm font-medium rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/60"
+						class="px-4 py-2 text-sm font-medium rounded-md text-muted-foreground hover:text-foreground hover:bg-muted"
 					>
 						Cooking
 					</a>
@@ -69,8 +68,7 @@ const isHome = Astro.url.pathname === '/';
 
 		{/* Footer */}
 		<footer
-			class="backdrop-blur-3xl border-t border-border mt-16"
-			style="background: linear-gradient(180deg, oklch(15% 0.015 255 / 0.72), oklch(14% 0.013 255 / 0.92));"
+			class="border-t border-border bg-background mt-16"
 		>
 			<div class="container mx-auto px-4 py-6">
 				<div class="flex items-center justify-center gap-8 text-base text-muted-foreground">

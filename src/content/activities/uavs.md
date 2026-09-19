@@ -5,6 +5,8 @@ date: Aug 2024 - Present
 website: https://uav.berkeley.edu/
 logo: uavlogo.png
 logoAlt: UAVs@Berkeley Logo
+notes:
+  - The best club
 #accomplishments:
 #  - Leading the hardware development and integration of #two competition and research platforms
 #  - Designing and manufacturing a variety of structures #and components using 3D printing, machining, #waterjet, and more

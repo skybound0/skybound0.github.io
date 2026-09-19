@@ -31,7 +31,7 @@ const imageDimensions = getDimensionsFromAspectRatio(imageAspectRatio, 1600);
 			{project.data.tags && project.data.tags.length > 0 && (
 				<div class="flex flex-wrap justify-center gap-2 mb-6">
 					{project.data.tags.map((tag) => (
-						<a href={`/projects?tag=${encodeURIComponent(tag)}`} class="px-3 py-1 text-xs rounded-full border border-border bg-card/70 text-foreground hover:border-primary/40 hover:text-primary">
+						<a href={`/projects?tag=${encodeURIComponent(tag)}`} class="px-3 py-1 text-xs rounded-full border border-border bg-card text-foreground hover:border-primary/40 hover:text-primary">
 							{tag}
 						</a>
 					))}

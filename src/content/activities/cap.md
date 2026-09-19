@@ -8,10 +8,11 @@ logoAlt: Civil Air Patrol Command Emblem
 notes:
   - Cadet Commander, Col. Shorty Powers Comp. Sq., 2021-2023
   - Cadet Public Affairs OIC, Winter Raptor VI
-  - Wing Commander's Commendation
-  - CAP Achievement Award
-  - Amelia Earhart Award
-  - AFA Squadron Cadet of the Year
+  - I did some other stuff too I guess
+#  - Wing Commander's Commendation
+#  - CAP Achievement Award
+#  - Amelia Earhart Award
+#  - AFA Squadron Cadet of the Year
 #accomplishments:
 #  - Ran Public Affairs operations in support of #numerous events around the country across 3 years
 #  - Led and mentored the Public Affairs team for the #400-attendee Winter Raptor leadership and aerospace #camp for 2 consecutive years of record-breaking #recruitment

@@ -3,9 +3,10 @@ import type { CollectionEntry } from 'astro:content';
 
 interface Props {
   activities: CollectionEntry<'activities'>[];
+  title?: string;
 }
 
-const { activities } = Astro.props;
+const { activities, title } = Astro.props;
 
 const MONTH_MAP: Record<string, number> = {
   jan: 0,
@@ -37,104 +38,56 @@ const MONTH_MAP: Record<string, number> = {
 function parseDateToken(rawToken: string): number {
   const token = rawToken.trim().toLowerCase();
 
-  if (!token) {
-    return Number.NEGATIVE_INFINITY;
-  }
-
-  if (token.includes('present') || token.includes('current') || token.includes('now')) {
-    return Date.now();
-  }
+  if (!token) return Number.NEGATIVE_INFINITY;
+  if (token.includes('present') || token.includes('current') || token.includes('now')) return Date.now();
 
   const monthYearMatch = token.match(/([a-z]+)\s+(\d{4})/i);
   if (monthYearMatch) {
     const month = MONTH_MAP[monthYearMatch[1].toLowerCase()];
     const year = Number(monthYearMatch[2]);
-    if (!Number.isNaN(month) && !Number.isNaN(year)) {
-      return new Date(year, month, 1).getTime();
-    }
+    if (!Number.isNaN(month) && !Number.isNaN(year)) return new Date(year, month, 1).getTime();
   }
 
   const yearMatch = token.match(/\b(19|20)\d{2}\b/);
-  if (yearMatch) {
-    return new Date(Number(yearMatch[0]), 0, 1).getTime();
-  }
-
-  return Number.NEGATIVE_INFINITY;
+  return yearMatch ? new Date(Number(yearMatch[0]), 0, 1).getTime() : Number.NEGATIVE_INFINITY;
 }
 
-function getStartDateScore(dateText: string): number {
-  const normalized = dateText.replace(/\u2013/g, '-');
-  const parts = normalized
+function getRecencyScore(dateText: string): number {
+  const parts = dateText
+    .replace(/\u2013/g, '-')
     .split('-')
     .map((part) => part.trim())
     .filter(Boolean);
 
-  if (parts.length === 0) {
-    return Number.NEGATIVE_INFINITY;
-  }
-
-  const startPart = parts[0];
-  const startScore = parseDateToken(startPart);
-
-  if (startScore !== Number.NEGATIVE_INFINITY) {
-    return startScore;
-  }
-
-  return Number.NEGATIVE_INFINITY;
-}
-
-const MANUAL_PRIORITY_WEIGHTS: Record<string, number> = {
-  'Open Computing Facility': 2,
-  'Unmanned Aerial Vehicles at Berkeley': 2,
-  Supernode: 2,
-};
-
-function getManualPriorityWeight(organization: string): number {
-  return MANUAL_PRIORITY_WEIGHTS[organization] ?? 0;
+  if (parts.length === 0) return Number.NEGATIVE_INFINITY;
+  return parseDateToken(parts[parts.length - 1]) || parseDateToken(parts[0]);
 }
 
 function getInitials(name: string): string {
   const words = name.trim().split(/\s+/).filter(Boolean);
-  if (words.length === 0) {
-    return '?';
-  }
-  if (words.length === 1) {
-    return words[0].slice(0, 2).toUpperCase();
-  }
+  if (words.length === 0) return '?';
+  if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
   return `${words[0][0]}${words[words.length - 1][0]}`.toUpperCase();
 }
 
 function getSeededUnit(seed: string): number {
   let hash = 2166136261;
-
-  for (let i = 0; i < seed.length; i += 1) {
-    hash ^= seed.charCodeAt(i);
+  for (let characterIndex = 0; characterIndex < seed.length; characterIndex += 1) {
+    hash ^= seed.charCodeAt(characterIndex);
     hash = Math.imul(hash, 16777619);
   }
-
   return (hash >>> 0) / 4294967295;
 }
 
-const activitiesSorted = [...activities].sort((a, b) => {
-  const manualA = getManualPriorityWeight(a.data.organization);
-  const manualB = getManualPriorityWeight(b.data.organization);
-
-  if (manualA !== manualB) {
-    return manualB - manualA;
-  }
-
-  const scoreA = getStartDateScore(a.data.date);
-  const scoreB = getStartDateScore(b.data.date);
-  return scoreB - scoreA;
-});
-
+const activitiesSorted = [...activities].sort((firstActivity, secondActivity) => getRecencyScore(secondActivity.data.date) - getRecencyScore(firstActivity.data.date));
 const GOLDEN_ANGLE = Math.PI * (3 - Math.sqrt(5));
+const ICON_LAYOUT_SEED = 'hello-biden';
 const total = Math.max(1, activitiesSorted.length);
-const INNER_RADIUS_PCT = 5;
-const OUTER_RADIUS_PCT = 42;
-const COLLISION_PADDING_PCT = 2;
+const INNER_RADIUS_PCT = 8;
+const OUTER_RADIUS_PCT = 34;
+const COLLISION_PADDING_PCT = 5;
 const COLLISION_ITERATIONS = 280;
-const CENTER_PULL = 0.002;
+const CENTER_PULL = 0.001;
 
 type NodeLayout = {
   activity: CollectionEntry<'activities'>;
@@ -147,49 +100,40 @@ type NodeLayout = {
 
 const nodes: NodeLayout[] = activitiesSorted.map((activity, index) => {
   const recencyWeight = total <= 1 ? 1 : 1 - index / (total - 1);
-  const seedBase = `${activity.id}-${activity.data.organization}-${index}`;
-
-  const angleJitter = (getSeededUnit(`${seedBase}-angle`) - 0.5) * 0.95;
+  const seedBase = `${ICON_LAYOUT_SEED}-${activity.id}-${activity.data.organization}-${index}`;
+  const angle = -Math.PI / 2 + index * GOLDEN_ANGLE + (getSeededUnit(`${seedBase}-angle`) - 0.5) * 0.95;
   const radiusJitter = (getSeededUnit(`${seedBase}-radius`) - 0.5) * 5.5;
-
-  const baseAngle = -Math.PI / 2 + index * GOLDEN_ANGLE;
-  const angle = baseAngle + angleJitter;
-
   const spiralRadius = Math.sqrt((index + 0.5) / total) * (OUTER_RADIUS_PCT - INNER_RADIUS_PCT);
-  const centerBias = (1 - recencyWeight) * 2.2;
-  const radius = Math.max(INNER_RADIUS_PCT, Math.min(OUTER_RADIUS_PCT, INNER_RADIUS_PCT + spiralRadius + radiusJitter + centerBias));
-
-  const sizePct = 16 + recencyWeight * 15;
+  const radius = Math.max(INNER_RADIUS_PCT, Math.min(OUTER_RADIUS_PCT, INNER_RADIUS_PCT + spiralRadius + radiusJitter + (1 - recencyWeight) * 2.2));
 
   return {
     activity,
     xPct: 50 + Math.cos(angle) * radius,
     yPct: 50 + Math.sin(angle) * radius,
-    sizePct,
+    sizePct: 16 + recencyWeight * 15,
     initials: getInitials(activity.data.organization),
     zIndex: 10 + Math.round(recencyWeight * 80),
   };
 });
 
 for (let iteration = 0; iteration < COLLISION_ITERATIONS; iteration += 1) {
-  for (let i = 0; i < nodes.length; i += 1) {
-    for (let j = i + 1; j < nodes.length; j += 1) {
-      const a = nodes[i];
-      const b = nodes[j];
-      const dx = b.xPct - a.xPct;
-      const dy = b.yPct - a.yPct;
-      const distance = Math.hypot(dx, dy) || 0.001;
-      const minimumDistance = (a.sizePct + b.sizePct) / 2 + COLLISION_PADDING_PCT;
+  for (let firstIndex = 0; firstIndex < nodes.length; firstIndex += 1) {
+    for (let secondIndex = firstIndex + 1; secondIndex < nodes.length; secondIndex += 1) {
+      const firstNode = nodes[firstIndex];
+      const secondNode = nodes[secondIndex];
+      const deltaX = secondNode.xPct - firstNode.xPct;
+      const deltaY = secondNode.yPct - firstNode.yPct;
+      const distance = Math.hypot(deltaX, deltaY) || 0.001;
+      const minimumDistance = (firstNode.sizePct + secondNode.sizePct) / 2 + COLLISION_PADDING_PCT;
 
       if (distance < minimumDistance) {
         const overlap = (minimumDistance - distance) / 2;
-        const ux = dx / distance;
-        const uy = dy / distance;
-
-        a.xPct -= ux * overlap;
-        a.yPct -= uy * overlap;
-        b.xPct += ux * overlap;
-        b.yPct += uy * overlap;
+        const unitX = deltaX / distance;
+        const unitY = deltaY / distance;
+        firstNode.xPct -= unitX * overlap;
+        firstNode.yPct -= unitY * overlap;
+        secondNode.xPct += unitX * overlap;
+        secondNode.yPct += unitY * overlap;
       }
     }
   }
@@ -197,7 +141,6 @@ for (let iteration = 0; iteration < COLLISION_ITERATIONS; iteration += 1) {
   for (const node of nodes) {
     node.xPct += (50 - node.xPct) * CENTER_PULL;
     node.yPct += (50 - node.yPct) * CENTER_PULL;
-
     const edgeInset = node.sizePct / 2 + 0.35;
     node.xPct = Math.min(100 - edgeInset, Math.max(edgeInset, node.xPct));
     node.yPct = Math.min(100 - edgeInset, Math.max(edgeInset, node.yPct));
@@ -211,9 +154,10 @@ for (const node of nodes) {
 }
 ---
 
-<div class="activity-graph-shell">
+<div class="activity-graph-shell" data-title-graph>
   {nodes.length > 0 ? (
     <div class="activity-graph" role="list" aria-label="Activities graph">
+      {title && <h1 class="activity-graph-title" data-activity-title>{title}</h1>}
       {nodes.map((node) => {
         const { data } = node.activity;
         const horizontalClass = node.xPct > 72 ? 'tooltip-left' : node.xPct < 28 ? 'tooltip-right' : 'tooltip-center';
@@ -225,6 +169,7 @@ for (const node of nodes) {
             target="_blank"
             rel="noopener noreferrer"
             class="activity-node group"
+            data-activity-node
             role="listitem"
             title={`${data.organization} - ${data.role}`}
             style={`left:${node.xPct}%; top:${node.yPct}%; --node-size:${node.sizePct}%; --node-z:${node.zIndex};`}
@@ -235,7 +180,7 @@ for (const node of nodes) {
                 <img
                   src={data.logo}
                   alt={data.logoAlt ?? `${data.organization} logo`}
-                  class="h-full w-full object-contain rounded-none drop-shadow-[0_9px_18px_rgba(0,0,0,0.35)]"
+                  class="h-full w-full object-contain rounded-none"
                   loading="lazy"
                 />
               ) : (
@@ -245,13 +190,11 @@ for (const node of nodes) {
 
             <span class={`node-tooltip ${horizontalClass} ${verticalClass}`} role="presentation">
               <strong class="block text-sm leading-tight text-foreground">{data.organization}</strong>
-              <span class="mt-1 block text-xs text-foreground/80">{data.role}</span>
+              <span class="mt-1 block text-xs text-foreground">{data.role}</span>
               <span class="mt-1 block text-[11px] text-muted-foreground">{data.date}</span>
               {data.notes && data.notes.length > 0 && (
-                <ul class="mt-2 space-y-1 text-[11px] leading-snug text-foreground/90">
-                  {data.notes.map((note) => (
-                    <li class="note-item">{note}</li>
-                  ))}
+                <ul class="mt-2 space-y-1 text-[11px] leading-snug text-muted-foreground">
+                  {data.notes.map((note) => <li>{note}</li>)}
                 </ul>
               )}
             </span>
@@ -267,17 +210,31 @@ for (const node of nodes) {
 <style>
   .activity-graph-shell {
     position: relative;
+    width: min(100%, 36rem);
+    margin: 0 auto;
     overflow: visible;
   }
 
   .activity-graph {
     position: relative;
-    z-index: 1;
     aspect-ratio: 1 / 1;
     width: 100%;
-    margin: 0 auto;
-    min-height: clamp(18.5rem, 48vw, 34rem);
-    isolation: isolate;
+    min-height: clamp(20rem, 48vw, 34rem);
+  }
+
+  .activity-graph-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 110;
+    margin: 0;
+    color: oklch(42% 0.09 250);
+    font-size: clamp(3.75rem, 8vw, 6rem);
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
   }
 
   .activity-node {
@@ -285,8 +242,8 @@ for (const node of nodes) {
     transform: translate(-50%, -50%);
     width: var(--node-size);
     height: var(--node-size);
-    max-width: 11rem;
-    max-height: 11rem;
+    max-width: 9rem;
+    max-height: 9rem;
     min-width: 4rem;
     min-height: 4rem;
     z-index: var(--node-z);
@@ -296,7 +253,7 @@ for (const node of nodes) {
 
   .activity-node:hover,
   .activity-node:focus-visible {
-    z-index: 100;
+    z-index: 300;
   }
 
   .node-core {
@@ -304,105 +261,51 @@ for (const node of nodes) {
     height: 100%;
     display: grid;
     place-items: center;
-    transition:
-      transform 180ms ease,
-      filter 180ms ease;
+    transition: transform 180ms ease;
   }
 
   .activity-node:hover .node-core,
   .activity-node:focus-visible .node-core {
     transform: scale(1.08);
-    filter: drop-shadow(0 12px 24px oklch(4% 0.01 260 / 0.42));
   }
 
   .node-fallback {
     width: 100%;
     height: 100%;
-    border-radius: 0.9rem;
+    border-radius: 0.5rem;
     display: grid;
     place-items: center;
     font-size: clamp(0.72rem, 0.52rem + 0.45vw, 0.95rem);
     font-weight: 700;
     letter-spacing: 0.04em;
-    color: oklch(95% 0.01 252 / 0.95);
+    color: oklch(24% 0.025 248);
   }
 
   .node-tooltip {
     position: absolute;
+    top: calc(100% + 0.6rem);
     left: 50%;
-    top: calc(100% + 0.65rem);
-    transform: translate(-50%, 4px);
-    width: min(14rem, 76vw);
-    border-radius: 0.9rem;
-    border: 1px solid oklch(32% 0.02 252 / 0.95);
-    background:
-      radial-gradient(circle at 84% 0%, oklch(58% 0.068 292 / 0.1), transparent 42%),
-      linear-gradient(162deg, oklch(22% 0.02 248 / 0.94), oklch(15% 0.015 260 / 0.96));
-    padding: 0.65rem 0.75rem;
+    width: max-content;
+    max-width: min(15rem, 70vw);
+    padding: 0.65rem 0.8rem;
+    border: 1px solid oklch(70% 0.025 248);
+    border-radius: 0.5rem;
+    background: oklch(96% 0.012 248);
+    transform: translate(-50%, 0.35rem);
     pointer-events: none;
     opacity: 0;
-    transition:
-      opacity 170ms ease,
-      transform 170ms ease;
+    transition: opacity 160ms ease, transform 160ms ease;
     text-align: left;
-    white-space: normal;
-    max-height: min(15rem, 58vh);
-    overflow-y: auto;
   }
 
-  .node-tooltip.tooltip-left {
-    left: auto;
-    right: calc(50% + 0.2rem);
-    transform: translate(0, 4px);
-  }
-
-  .node-tooltip.tooltip-right {
-    left: calc(50% + 0.2rem);
-    right: auto;
-    transform: translate(0, 4px);
-  }
-
-  .node-tooltip.tooltip-center {
-    left: 50%;
-    right: auto;
-    transform: translate(-50%, 4px);
-  }
-
-  .node-tooltip.tooltip-up {
-    top: auto;
-    bottom: calc(100% + 0.65rem);
-  }
-
-  .node-tooltip.tooltip-down {
-    top: calc(100% + 0.65rem);
-    bottom: auto;
-  }
-
-  .note-item {
-    position: relative;
-    padding-left: 0.75rem;
-  }
-
-  .note-item::before {
-    content: '•';
-    position: absolute;
-    left: 0;
-    top: 0;
-    color: oklch(77% 0.03 248 / 0.7);
-  }
+  .node-tooltip.tooltip-left { left: auto; right: calc(100% + 0.6rem); transform: translate(0.35rem, 0); }
+  .node-tooltip.tooltip-right { left: calc(100% + 0.6rem); transform: translate(-0.35rem, 0); }
+  .node-tooltip.tooltip-up { top: auto; bottom: calc(100% + 0.6rem); }
 
   .activity-node:hover .node-tooltip,
   .activity-node:focus-visible .node-tooltip {
+    z-index: 400;
     opacity: 1;
-  }
-
-  .activity-node:hover .node-tooltip.tooltip-left,
-  .activity-node:focus-visible .node-tooltip.tooltip-left {
-    transform: translate(0, 0);
-  }
-
-  .activity-node:hover .node-tooltip.tooltip-right,
-  .activity-node:focus-visible .node-tooltip.tooltip-right {
     transform: translate(0, 0);
   }
 
@@ -412,12 +315,98 @@ for (const node of nodes) {
   }
 
   @media (max-width: 640px) {
-    .activity-graph {
-      min-height: 18.25rem;
-    }
-
-    .node-tooltip {
-      width: min(12.5rem, 76vw);
-    }
+    .activity-graph-shell { width: min(100%, 24rem); }
+    .activity-graph { min-height: 20rem; }
+    .node-tooltip { max-width: min(12rem, 62vw); }
   }
 </style>
+
+<script>
+  const titleGraphs = document.querySelectorAll<HTMLElement>('[data-title-graph]');
+
+  function arrangeAroundTitle(graph: HTMLElement) {
+    const title = graph.querySelector<HTMLElement>('[data-activity-title]');
+    const nodes = [...graph.querySelectorAll<HTMLElement>('[data-activity-node]')];
+    if (!title || nodes.length === 0) return;
+
+    const margin = 64;
+    const iconGap = 32;
+    const graphRect = graph.getBoundingClientRect();
+    const titleRect = title.getBoundingClientRect();
+    const keepout = {
+      left: titleRect.left - graphRect.left - margin,
+      right: titleRect.right - graphRect.left + margin,
+      top: titleRect.top - graphRect.top - margin,
+      bottom: titleRect.bottom - graphRect.top + margin,
+    };
+
+    for (let pass = 0; pass < 8; pass += 1) {
+      let moved = false;
+
+      for (const node of nodes) {
+        const nodeRect = node.getBoundingClientRect();
+        const relativeNode = {
+          left: nodeRect.left - graphRect.left,
+          right: nodeRect.right - graphRect.left,
+          top: nodeRect.top - graphRect.top,
+          bottom: nodeRect.bottom - graphRect.top,
+        };
+        const overlaps = relativeNode.right > keepout.left && relativeNode.left < keepout.right && relativeNode.bottom > keepout.top && relativeNode.top < keepout.bottom;
+
+        if (!overlaps) continue;
+
+        const moveLeft = keepout.left - relativeNode.right;
+        const moveRight = keepout.right - relativeNode.left;
+        const moveUp = keepout.top - relativeNode.bottom;
+        const moveDown = keepout.bottom - relativeNode.top;
+        const horizontalMove = Math.abs(moveLeft) < Math.abs(moveRight) ? moveLeft : moveRight;
+        const verticalMove = Math.abs(moveUp) < Math.abs(moveDown) ? moveUp : moveDown;
+        const moveX = Math.abs(horizontalMove) < Math.abs(verticalMove) ? horizontalMove : 0;
+        const moveY = moveX === 0 ? verticalMove : 0;
+        const left = Number.parseFloat(node.style.left) || 50;
+        const top = Number.parseFloat(node.style.top) || 50;
+
+        node.style.left = `${left + (moveX / graphRect.width) * 100}%`;
+        node.style.top = `${top + (moveY / graphRect.height) * 100}%`;
+        moved = true;
+      }
+
+      for (let firstIndex = 0; firstIndex < nodes.length; firstIndex += 1) {
+        const firstNode = nodes[firstIndex].getBoundingClientRect();
+        const firstCenterX = firstNode.left + firstNode.width / 2;
+        const firstCenterY = firstNode.top + firstNode.height / 2;
+
+        for (let secondIndex = firstIndex + 1; secondIndex < nodes.length; secondIndex += 1) {
+          const secondNode = nodes[secondIndex].getBoundingClientRect();
+          const overlapX = (firstNode.width + secondNode.width) / 2 + iconGap - Math.abs(secondNode.left + secondNode.width / 2 - firstCenterX);
+          const overlapY = (firstNode.height + secondNode.height) / 2 + iconGap - Math.abs(secondNode.top + secondNode.height / 2 - firstCenterY);
+
+          if (overlapX <= 0 || overlapY <= 0) continue;
+
+          const secondLeft = Number.parseFloat(nodes[secondIndex].style.left) || 50;
+          const secondTop = Number.parseFloat(nodes[secondIndex].style.top) || 50;
+          const secondCenterX = secondNode.left + secondNode.width / 2;
+          const secondCenterY = secondNode.top + secondNode.height / 2;
+
+          if (overlapX < overlapY) {
+            const direction = secondCenterX >= firstCenterX ? 1 : -1;
+            nodes[secondIndex].style.left = `${secondLeft + (direction * overlapX / graphRect.width) * 100}%`;
+          } else {
+            const direction = secondCenterY >= firstCenterY ? 1 : -1;
+            nodes[secondIndex].style.top = `${secondTop + (direction * overlapY / graphRect.height) * 100}%`;
+          }
+
+          moved = true;
+        }
+      }
+
+      if (!moved) break;
+    }
+  }
+
+  for (const graph of titleGraphs) {
+    requestAnimationFrame(() => arrangeAroundTitle(graph));
+    const observer = new ResizeObserver(() => arrangeAroundTitle(graph));
+    observer.observe(graph);
+  }
+</script>

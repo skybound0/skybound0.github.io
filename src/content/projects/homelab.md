@@ -36,3 +36,5 @@ The system has gotten more and more complicated over time. A brief overview of s
 - miku- Voron 2.4 3D printer. This is here because I used to use the Pi on it for WoL and some other utilities I needed back before I got dedicated hardware.
 
 Coming soon: A whole Ubiquiti stack at my house plus new server hardware. When all that is setup, all the services will be moved over from my apartment and labsys will become a mirror/offsite backup. (Fall 2026 update: with the RAMpocalypse, I don't know if this is still possible. labsys lives on)
+
+Later fall 2026 update: everything is getting moved to Proxmox and k8s, probably

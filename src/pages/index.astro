@@ -3,7 +3,6 @@ import RootLayout from '../layouts/RootLayout.astro';
 import { buttonVariants } from '../components/ui/Button';
 import { getCollection } from 'astro:content';
 import ActivityGraph from '../components/ActivityGraph.astro';
-import { Linkedin, Mail } from 'lucide-react';
 
 const activities = await getCollection('activities');
 const buddyBox = await getCollection('buddyBox');
@@ -12,45 +11,23 @@ const buddyBoxData = buddyBox[0]?.data;
 
 <RootLayout title="Eric Gu" description="Projects, cooking, and more">
   <div class="page-container-home">
-    <section class="mb-16 text-center">
-      <div class="mx-auto max-w-2xl">
-        <h1 class="text-3xl sm:text-4xl font-bold mb-3 sm:mb-4 gradient-text">Eric Gu</h1>
-
-        <div class="flex justify-center gap-4 mb-4">
-          <a href="https://www.linkedin.com/in/eric-t-gu/" target="_blank" rel="noopener noreferrer" class="text-muted-foreground hover:text-foreground" aria-label="LinkedIn">
-            <Linkedin className="size-7" aria-hidden="true" />
-          </a>
-          <a href="mailto:eric.gu@berkeley.edu" class="text-muted-foreground hover:text-foreground" aria-label="Email">
-            <Mail className="size-7" aria-hidden="true" />
-          </a>
-        </div>
-
-        <div class="text-base text-muted-foreground leading-relaxed mb-6 space-y-1">
-          <p>Mechanical Engineering + Electrical Engineering & Computer Science</p>
-          <p><em>University of California, Berkeley</em>, '28</p>
-          <p>I enjoy all things mechatronics, including robots, drones, and 3D printers! I also love cooking, biking, speedcubing, and run a pretty extensive homelab.</p>
-        </div>
-
-        <div class="flex flex-wrap justify-center gap-3 sm:gap-4">
-          <a href="/projects" class={buttonVariants({ variant: 'project' })}>Projects</a>
-          <a href="/cooking" class={buttonVariants({ variant: 'outline' })}>Cooking</a>
-          <a href="/Gu_Eric_Resume_5_1_2026.pdf" target="_blank" rel="noopener noreferrer" class={buttonVariants({ variant: 'outline' })}>Resume</a>
-        </div>
-      </div>
+    <section class="home-activity-stage">
+      <h2 class="sr-only">What I'm Involved In</h2>
+      <ActivityGraph activities={activities} title="Hi! :)" />
     </section>
 
-    <div class="separator-gradient mb-12"></div>
-
-    <section>
-      <h2 class="section-title">What I'm Involved In</h2>
-      <div class="mx-auto w-full max-w-[36rem]">
-        <ActivityGraph activities={activities} />
+    <section class="home-intro">
+      <div class="home-intro-copy">
+        <p>I'm Eric, a junior at UC Berkeley double majoring in mechanical engineering and electrical engineering & computer science (EECS). I enjoy all things mechatronics, including robots, drones, and 3D printers. When I'm not locked away in Etcheverry Hall, Supernode, or the Open Computing Facility, you can find me baking, biking, building random stuff, and working on my homelab.</p>
       </div>
+      <nav class="home-intro-nav" aria-label="Main navigation">
+        <a href="/projects" class={buttonVariants({ variant: 'project' })}>Projects</a>
+        <a href="/cooking" class={buttonVariants({ variant: 'outline' })}>Cooking</a>
+        <a href="/Gu_Eric_Resume_8_1_2026.pdf" target="_blank" rel="noopener noreferrer" class={buttonVariants({ variant: 'outline' })}>Resume</a>
+      </nav>
     </section>
 
-    <div class="separator-gradient my-12"></div>
-
-    <section>
+    <section class="mt-16">
       {buddyBoxData ? (
         <>
           <div class="flex flex-wrap justify-center items-center gap-4 sm:gap-5">
@@ -86,3 +63,63 @@ const buddyBoxData = buddyBox[0]?.data;
     </section>
   </div>
 </RootLayout>
+
+<style>
+  .home-activity-stage {
+    position: relative;
+    width: 100vw;
+    max-width: none;
+    min-height: calc(100vh - 3rem);
+    min-height: calc(100svh - 3rem);
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+  }
+
+  .home-activity-stage :global(.activity-graph-shell) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: min(calc(100% - 2rem), 36rem);
+    transform: translate(-50%, -50%);
+  }
+
+  .home-intro {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+    border-top: 1px solid oklch(58% 0.025 248);
+    padding: 3rem 0;
+  }
+
+  .home-intro-copy {
+    max-width: 42rem;
+    color: oklch(38% 0.025 248);
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+
+  .home-intro-nav {
+    display: flex;
+    flex: 0 0 auto;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.75rem;
+  }
+
+  @media (max-width: 640px) {
+    .home-activity-stage :global(.activity-graph-shell) {
+      width: min(calc(100% - 1rem), 24rem);
+    }
+
+    .home-intro {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .home-intro-nav {
+      justify-content: flex-start;
+    }
+  }
+</style>

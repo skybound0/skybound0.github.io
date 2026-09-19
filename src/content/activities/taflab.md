@@ -5,6 +5,8 @@ date: May 2025 - Aug 2025
 website: https://taflab.berkeley.edu/
 logo: taflablogo.png
 logoAlt: Theoretical and Applied Fluid Dynamics Laboratory Logo
+notes:
+  - TAFLab is inextricably linked to our lives
 #accomplishments:
 #  - Designed the mechanical systems for three #generations of autonomous sailboats
 #  - Integrated sailboat control boards, sensors, and #actuators with an unified, easy-to-access mounting #system

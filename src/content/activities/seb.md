@@ -1,7 +1,7 @@
 ---
 organization: Space Enterprise at Berkeley
 role: Structures Team Member
-date: Aug 2024 - Present
+date: Aug 2024 - May 2026
 website: https://www.berkeleyse.org/
 logo: seblogo.png
 logoAlt: Space Enterprise at Berkeley Logo

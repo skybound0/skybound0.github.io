@@ -35,7 +35,7 @@ export default function ProjectFilterGrid({ projects, initialTag = '' }: Props) 
 		const imageDimensions = getDimensionsFromAspectRatio(project.imageAspectRatio, 1400);
 
 		return (
-			<Card className="group overflow-hidden border-border bg-card/66 py-0 transition-colors hover:border-primary/40 hover:bg-card/88">
+			<Card className="group overflow-hidden border-border bg-card py-0 transition-colors hover:border-primary/40 hover:bg-muted">
 				<a href={`/projects/${project.slug}`} className="block">
 					{project.image && (
 						<div
