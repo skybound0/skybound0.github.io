@@ -38,6 +38,10 @@ yarn-error.log*
 .env*
 !.env.example
 
+# nix
+.envrc
+.direnv/
+
 # IDE
 .vscode/
 .idea/
