@@ -11,6 +11,11 @@
       "aspectRatio": "3 / 4"
     },
     {
+      "src": "/cooking/raspberryyogurt.jpg",
+      "caption": "Raspberry yogurt pound cake",
+      "aspectRatio": "3 / 4"
+    },
+    {
       "src": "/cooking/ubecoconutmochi.jpg",
       "caption": "Ube coconut mochi butter cake. Currently my favorite recipe ever.",
       "aspectRatio": "4 / 5"
@@ -31,9 +36,9 @@
       "aspectRatio": "1 / 1"
     },
     {
-      "src": "/cooking/kfc.jpg",
-      "caption": "Korean fried chicken with random gochujang sauce",
-      "aspectRatio": "4 / 5"
+      "src": "/cooking/chocolateberry.jpg",
+      "caption": "Chocolate berry cake",
+      "aspectRatio": "3 / 4"
     },
     {
       "src": "/cooking/onigiri.jpg",
@@ -103,6 +108,11 @@
     {
       "src": "/cooking/pulledpork.jpg",
       "caption": "Pulled pork",
+      "aspectRatio": "4 / 5"
+    },
+    {
+      "src": "/cooking/kfc.jpg",
+      "caption": "Korean fried chicken with random gochujang sauce",
       "aspectRatio": "4 / 5"
     }
   ]
