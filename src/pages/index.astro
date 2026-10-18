@@ -1,11 +1,11 @@
 ---
-import RootLayout from '../layouts/RootLayout.astro';
-import { buttonVariants } from '../components/ui/Button';
-import { getCollection } from 'astro:content';
-import ActivityGraph from '../components/ActivityGraph.astro';
+import RootLayout from "../layouts/RootLayout.astro";
+import { buttonVariants } from "../components/ui/Button";
+import { getCollection } from "astro:content";
+import ActivityGraph from "../components/ActivityGraph.astro";
 
-const activities = await getCollection('activities');
-const buddyBox = await getCollection('buddyBox');
+const activities = await getCollection("activities");
+const buddyBox = await getCollection("buddyBox");
 const buddyBoxData = buddyBox[0]?.data;
 ---
 
@@ -14,52 +14,83 @@ const buddyBoxData = buddyBox[0]?.data;
     <section class="home-activity-stage">
       <h2 class="sr-only">What I'm Involved In</h2>
       <ActivityGraph activities={activities} title="Hi! :)" />
+      <button
+        type="button"
+        class="home-scroll-button"
+        aria-label="Scroll to description"
+        onclick="document.getElementById('home-intro')?.scrollIntoView({ behavior: 'smooth' })"
+      >
+        v
+      </button>
     </section>
 
-    <section class="home-intro">
+    <section id="home-intro" class="home-intro">
       <div class="home-intro-copy">
-        <p>I'm Eric, a junior at UC Berkeley double majoring in mechanical engineering and electrical engineering & computer science (EECS). I enjoy all things mechatronics, including robots, drones, and 3D printers. When I'm not locked away in Etcheverry Hall, Supernode, or the Open Computing Facility, you can find me baking, biking, building random stuff, and working on my homelab.</p>
+        <p>
+          I'm Eric, a junior at UC Berkeley double majoring in mechanical
+          engineering and electrical engineering & computer science (EECS). I
+          enjoy all things mechatronics, including robots, drones, and 3D
+          printers. When I'm not locked away in Etcheverry Hall, Supernode, or
+          the Open Computing Facility, you can find me baking, biking, building
+          random stuff, and working on my homelab.
+        </p>
       </div>
       <nav class="home-intro-nav" aria-label="Main navigation">
-        <a href="/projects" class={buttonVariants({ variant: 'project' })}>Projects</a>
-        <a href="/cooking" class={buttonVariants({ variant: 'outline' })}>Cooking</a>
-        <a href="/shares/Gu_Eric_Resume_8_1_2026.pdf" target="_blank" rel="noopener noreferrer" class={buttonVariants({ variant: 'outline' })}>Resume</a>
+        <a href="/projects" class={buttonVariants({ variant: "project" })}
+          >Projects</a
+        >
+        <a href="/cooking" class={buttonVariants({ variant: "outline" })}
+          >Cooking</a
+        >
+        <a
+          href="/shares/Gu_Eric_Resume_8_1_2026.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          class={buttonVariants({ variant: "outline" })}>Resume</a
+        >
       </nav>
     </section>
 
     <section class="mt-16">
-      {buddyBoxData ? (
-        <>
-          <div class="flex flex-wrap justify-center items-center gap-4 sm:gap-5">
-            {buddyBoxData.items.map((item) => (
-              <a
-                href={item.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center justify-center transition-opacity hover:opacity-90"
-                aria-label={item.alt}
-                title={item.alt}
-              >
-                <div class="w-[158px] sm:w-[176px]" style="aspect-ratio: 88 / 31;">
-                  <img
-                    src={item.image}
-                    alt={item.alt}
-                    style={{ imageRendering: 'pixelated', borderRadius: '0' }}
-                    width="176"
-                    height="62"
-                    loading="lazy"
-                    decoding="async"
-                    sizes="(max-width: 640px) 158px, 176px"
-                    class="w-full h-full object-contain"
-                  />
-                </div>
-              </a>
-            ))}
-          </div>
-        </>
-      ) : (
-        <p class="text-muted-foreground">Add buddy box content in src/content/buddy-box/index.md</p>
-      )}
+      {
+        buddyBoxData ? (
+          <>
+            <div class="flex flex-wrap justify-center items-center gap-4 sm:gap-5">
+              {buddyBoxData.items.map((item) => (
+                <a
+                  href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center justify-center transition-opacity hover:opacity-90"
+                  aria-label={item.alt}
+                  title={item.alt}
+                >
+                  <div
+                    class="w-[158px] sm:w-[176px]"
+                    style="aspect-ratio: 88 / 31;"
+                  >
+                    <img
+                      src={item.image}
+                      alt={item.alt}
+                      style={{ imageRendering: "pixelated", borderRadius: "0" }}
+                      width="176"
+                      height="62"
+                      loading="lazy"
+                      decoding="async"
+                      sizes="(max-width: 640px) 158px, 176px"
+                      class="w-full h-full object-contain"
+                    />
+                  </div>
+                </a>
+              ))}
+            </div>
+          </>
+        ) : (
+          <p class="text-muted-foreground">
+            Add buddy box content in src/content/buddy-box/index.md
+          </p>
+        )
+      }
     </section>
   </div>
 </RootLayout>
@@ -81,6 +112,29 @@ const buddyBoxData = buddyBox[0]?.data;
     left: 50%;
     width: min(calc(100% - 2rem), 36rem);
     transform: translate(-50%, -50%);
+  }
+
+  .home-scroll-button {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 0;
+    padding: 0.25rem 0.75rem;
+    color: oklch(38% 0.025 248);
+    background: transparent;
+    font-size: 3rem;
+    line-height: 1;
+    cursor: pointer;
+    transition:
+      color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .home-scroll-button:hover,
+  .home-scroll-button:focus-visible {
+    color: oklch(42% 0.09 250);
+    transform: translate(-50%, 0.15rem);
   }
 
   .home-intro {
