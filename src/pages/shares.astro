@@ -52,6 +52,8 @@ const stickerPackImages = [
 					alt="Eric Gu 88x31 button"
 					width="88"
 					height="31"
+					loading="lazy"
+					decoding="async"
 					class="share-button-image"
 				/>
 			</article>
@@ -83,8 +85,12 @@ const stickerPackImages = [
 					</p>
 				</div>
 				<img
-					src="/shares/packs/berkeley-dining/croads.png"
+					src="/shares/packs/berkeley-dining/croads.webp"
 					alt="Berkeley Dining sticker"
+					width="400"
+					height="400"
+					loading="lazy"
+					decoding="async"
 					class="sticker-preview"
 				/>
 				<details class="sticker-details">
@@ -92,7 +98,7 @@ const stickerPackImages = [
 					<div class="sticker-grid">
 						{stickerPackImages.map((image) => (
 							<img
-								src={`/shares/packs/berkeley-dining/${image}`}
+								src={`/shares/packs/berkeley-dining/${image.replace(/\.[^.]+$/, '.webp')}`}
 								alt=""
 								loading="lazy"
 							/>

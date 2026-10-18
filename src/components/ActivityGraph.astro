@@ -181,7 +181,8 @@ for (const node of nodes) {
                   src={data.logo}
                   alt={data.logoAlt ?? `${data.organization} logo`}
                   class="h-full w-full object-contain rounded-none"
-                  loading="lazy"
+                  loading="eager"
+                  decoding="async"
                 />
               ) : (
                 <span class="node-fallback glass">{node.initials}</span>

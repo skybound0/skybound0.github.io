@@ -21,6 +21,7 @@
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             nodejs_22
+            imagemagick
             typescript-language-server
             vscode-langservers-extracted
           ];

@@ -2,7 +2,7 @@
 title: Epsilon-E Automated Guideway System
 date: "2025"
 description: Overhead hoist transport concept for semiconductor fabs for the Spring 2025 Berkeley ASME CADathon
-image: /projects/epsilone.png
+image: /projects/epsilone.webp
 imageAspectRatio: 4/3
 tags:
   - Autodesk Fusion

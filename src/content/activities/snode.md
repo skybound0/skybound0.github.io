@@ -3,7 +3,7 @@ organization: Supernode
 role: Student Fabrication Admin
 date: Dec 2024 - Present
 website: https://supernode.berkeley.edu/
-logo: /activities/snodelogo2.png
+logo: /activities/snodelogo2.webp
 logoAlt: Supernode Logo
 notes:
   - We are the only engineering makerspace that is open access to all Berkeley affiliates for free. I work on the 3D printers and related infra.

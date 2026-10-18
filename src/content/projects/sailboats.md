@@ -2,7 +2,7 @@
 title: Autonomous Endurance Research Sailboats
 date: "2025"
 description: Three generations of autonomous sailboats for the Theoretical and Applied Fluid Dynamics Laboratory
-image: /projects/tina3.jpg
+image: /projects/tina3.webp
 imageAspectRatio: 3/4
 tags:
   - Autodesk Fusion

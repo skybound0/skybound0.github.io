@@ -2,7 +2,7 @@
 title: Word Game Robot
 date: Ongoing
 description: CoreXY stylus-manipulator to play GamePigeon word games
-image: /projects/wgr.png
+image: /projects/wgr.webp
 imageAspectRatio: 3/2
 tags:
   - Autodesk Fusion

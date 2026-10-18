@@ -3,7 +3,7 @@ organization: Unmanned Aerial Vehicles at Berkeley
 role: Lead Airframe Engineer
 date: Aug 2024 - Present
 website: https://uav.berkeley.edu/
-logo: /activities/uavlogo.png
+logo: /activities/uavlogo.webp
 logoAlt: UAVs@Berkeley Logo
 notes:
   - The best club

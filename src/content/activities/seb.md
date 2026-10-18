@@ -3,7 +3,7 @@ organization: Space Enterprise at Berkeley
 role: Structures Team Member
 date: Aug 2024 - May 2026
 website: https://www.berkeleyse.org/
-logo: /activities/seblogo.png
+logo: /activities/seblogo.webp
 logoAlt: Space Enterprise at Berkeley Logo
 #complishments:
 #- Engineered thrust transfer structures for a 20 kN #rocket engine, chargewells, eye bolts, and other parts

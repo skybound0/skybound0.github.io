@@ -31,7 +31,7 @@ export default function ProjectFilterGrid({ projects, initialTag = '' }: Props) 
 	const leftColumnProjects = filteredProjects.filter((_, index) => index % 2 === 0);
 	const rightColumnProjects = filteredProjects.filter((_, index) => index % 2 === 1);
 
-	function renderProjectCard(project: Project) {
+	function renderProjectCard(project: Project, index: number) {
 		const imageDimensions = getDimensionsFromAspectRatio(project.imageAspectRatio, 1400);
 
 		return (
@@ -47,8 +47,9 @@ export default function ProjectFilterGrid({ projects, initialTag = '' }: Props) 
 								alt={project.title}
 								width={imageDimensions.width}
 								height={imageDimensions.height}
-								loading="lazy"
+								loading={index === 0 ? 'eager' : 'lazy'}
 								decoding="async"
+								fetchPriority={index === 0 ? 'high' : 'auto'}
 								sizes="(max-width: 768px) 100vw, 900px"
 								className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
 							/>
@@ -112,20 +113,20 @@ export default function ProjectFilterGrid({ projects, initialTag = '' }: Props) 
 			)}
 
 			<div className="grid grid-cols-1 gap-6 lg:hidden">
-				{filteredProjects.map((project) => (
-					<div key={project.slug}>{renderProjectCard(project)}</div>
+				  {filteredProjects.map((project, index) => (
+					<div key={project.slug}>{renderProjectCard(project, index)}</div>
 				))}
 			</div>
 
 			<div className="hidden lg:grid lg:grid-cols-2 lg:gap-6 lg:items-start">
 				<div className="flex flex-col gap-6">
-					{leftColumnProjects.map((project) => (
-						<div key={project.slug}>{renderProjectCard(project)}</div>
+					{leftColumnProjects.map((project, index) => (
+						<div key={project.slug}>{renderProjectCard(project, index * 2)}</div>
 					))}
 				</div>
 				<div className="flex flex-col gap-6">
-					{rightColumnProjects.map((project) => (
-						<div key={project.slug}>{renderProjectCard(project)}</div>
+					{rightColumnProjects.map((project, index) => (
+						<div key={project.slug}>{renderProjectCard(project, index * 2 + 1)}</div>
 					))}
 				</div>
 			</div>

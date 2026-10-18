@@ -3,7 +3,7 @@ organization: Civil Air Patrol
 role: Cadet Major
 date: Aug 2018 - Aug 2024
 website: https://www.gocivilairpatrol.com/
-logo: /activities/caplogo.png
+logo: /activities/caplogo.webp
 logoAlt: Civil Air Patrol Command Emblem
 notes:
   - Cadet Commander, Col. Shorty Powers Comp. Sq., 2021-2023
