@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@config '../../tailwind.config.mjs';
+@import 'tailwindcss';
 
 @layer base {
 	:root {
@@ -78,7 +76,7 @@
 	}
 
 	.page-title {
-		@apply text-center text-3xl sm:text-4xl font-bold mb-4 gradient-text leading-[1.15] pb-[0.08em];
+		@apply text-center text-3xl sm:text-4xl font-bold mb-4 text-primary leading-[1.15] pb-[0.08em];
 	}
 
 	.page-subtitle {
@@ -86,7 +84,7 @@
 	}
 
 	.section-title {
-		@apply text-center text-3xl sm:text-4xl font-bold mb-8 gradient-text;
+		@apply text-center text-3xl sm:text-4xl font-bold mb-8 text-primary;
 	}
 }
 
@@ -121,7 +119,7 @@ a:not(.no-underline) {
 h1,
 h2,
 h3 {
-	@apply gradient-text;
+	@apply text-primary;
 }
 
 /* Separator gradient */

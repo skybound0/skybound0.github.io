@@ -20,6 +20,7 @@ const isHome = Astro.url.pathname === '/';
 		<meta name="description" content={description} />
 		<link rel="icon" href="/favicon.ico" sizes="any" />
 		<link rel="shortcut icon" href="/favicon.ico" />
+	</head>
 	<body>
 		{!isHome && <nav
 			class="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background"
