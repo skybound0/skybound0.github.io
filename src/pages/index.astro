@@ -43,6 +43,9 @@ const buddyBoxData = buddyBox[0]?.data;
         <a href="/cooking" class={buttonVariants({ variant: "outline" })}
           >Cooking</a
         >
+        <a href="/shares" class={buttonVariants({ variant: "outline" })}
+          >Shares</a
+        >
         <a
           href="/shares/Gu_Eric_Resume_8_1_2026.pdf"
           target="_blank"
@@ -160,6 +163,13 @@ const buddyBoxData = buddyBox[0]?.data;
     flex-wrap: wrap;
     justify-content: flex-end;
     gap: 0.75rem;
+  }
+
+  @media (orientation: landscape) {
+    .home-intro-nav {
+      flex-direction: column;
+      align-items: stretch;
+    }
   }
 
   @media (max-width: 640px) {
