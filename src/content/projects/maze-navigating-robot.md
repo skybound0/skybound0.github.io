@@ -2,7 +2,7 @@
 title: Autonomous Maze Navigating Robot
 date: "2024"
 description: Science Olympiad Robot Tour robot with low-level SLAM and modular chassis
-image: /charlotte.jpg
+image: /projects/charlotte.jpg
 imageAspectRatio: 3/2
 tags:
   - C++

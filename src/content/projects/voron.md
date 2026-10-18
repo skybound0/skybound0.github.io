@@ -2,7 +2,7 @@
 title: Voron V2.4 3D Printer
 date: "2024"
 description: Heavily modified 350mm Voron 2.4 CoreXY FDM 3D printer
-image: /miku1.jpg
+image: /projects/miku1.jpg
 tags:
   - Mainsail
   - Klipper

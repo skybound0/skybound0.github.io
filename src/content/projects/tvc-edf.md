@@ -2,7 +2,7 @@
 title: Thrust Vector Controlled Electric Ducted Fan Drone
 date: "2025"
 description: A thrust vectoring EDF VTOL vehicle
-image: /scoobert.jpg
+image: /projects/scoobert.jpg
 imageAspectRatio: 1/1
 tags:
   - Solidworks

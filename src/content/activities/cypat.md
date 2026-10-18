@@ -3,7 +3,7 @@ organization: AFA CyberPatriot
 role: Team Captain
 date: Aug 2021 - May 2024
 website: https://www.uscyberpatriot.org/
-logo: cypatlogo.png
+logo: /activities/cypatlogo.png
 logoAlt: CyberPatriot Logo
 notes:
   - Competed in the Platinum tier in the All Service Division (2022-2023, 2nd in state) and the Open Division (2024, 3rd in state)

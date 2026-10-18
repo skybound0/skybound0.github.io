@@ -3,7 +3,7 @@ organization: Naperville Central High School Science Olympiad
 role: Team Captain
 date: Aug 2020 - May 2024
 website: https://www.soinc.org/
-logo: sciolylogo.png
+logo: /activities/sciolylogo.png
 logoAlt: Science Olympiad Logo
 notes:
   - SciOly taught me how to make good CAD

@@ -2,7 +2,7 @@
 title: Classroom Scheduling System
 date: "2024"
 description: Scheduling webapp for bell schedules and classroom displays
-image: /css.png
+image: /projects/css.png
 imageAspectRatio: 16/10
 tags:
   - React

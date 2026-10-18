@@ -2,7 +2,7 @@
 title: Modular Transportable Quadcopter Platform
 date: Ongoing
 description: High-usability quadcopter platform for UAVs@Berkeley
-image: /quad.png
+image: /projects/quad.png
 tags:
   - Autodesk Fusion
   - Ansys Structures

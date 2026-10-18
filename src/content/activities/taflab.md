@@ -3,7 +3,7 @@ organization: Theoretical and Applied Fluid Dynamics Laboratory
 role: Mechanical Engineering Intern
 date: May 2025 - Aug 2025
 website: https://taflab.berkeley.edu/
-logo: taflablogo.png
+logo: /activities/taflablogo.png
 logoAlt: Theoretical and Applied Fluid Dynamics Laboratory Logo
 notes:
   - TAFLab is inextricably linked to our lives
