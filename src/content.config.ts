@@ -13,7 +13,7 @@ const projects = defineCollection({
 		images: z.array(z.string()).optional(),
 		imageAspectRatio: z.string().optional(),
 		cardAspectRatio: z.string().optional(),
-		tags: z.array(z.string()).optional(),
+		categories: z.array(z.enum(['Robots', 'Motion', 'PCBs', 'Design', 'Other'])).optional().default([]),
 		list: z.array(z.string()).optional(),
 		draft: z.boolean().optional().default(false),
 	}),

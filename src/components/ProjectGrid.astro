@@ -1,0 +1,24 @@
+---
+import ProjectCard, { type ProjectCardData } from './ProjectCard.astro';
+
+interface Props {
+	projects: ProjectCardData[];
+}
+
+const { projects } = Astro.props;
+
+const indexed = projects.map((project, index) => ({ project, index }));
+const columns = [indexed.filter(({ index }) => index % 2 === 0), indexed.filter(({ index }) => index % 2 === 1)];
+---
+
+<div class="grid grid-cols-1 gap-6 lg:hidden">
+	{indexed.map(({ project, index }) => <ProjectCard project={project} index={index} />)}
+</div>
+
+<div class="hidden lg:grid lg:grid-cols-2 lg:items-start lg:gap-6">
+	{columns.map((column) => (
+		<div class="flex flex-col gap-6">
+			{column.map(({ project, index }) => <ProjectCard project={project} index={index} />)}
+		</div>
+	))}
+</div>

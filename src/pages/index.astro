@@ -1,97 +1,98 @@
 ---
 import RootLayout from "../layouts/RootLayout.astro";
-import { buttonVariants } from "../components/ui/Button";
 import { getCollection } from "astro:content";
 import ActivityGraph from "../components/ActivityGraph.astro";
 
 const activities = await getCollection("activities");
 const buddyBox = await getCollection("buddyBox");
 const buddyBoxData = buddyBox[0]?.data;
+
+const links = [
+  { href: "/projects", label: "Projects", primary: true },
+  { href: "/cooking", label: "Cooking" },
+  { href: "/shares", label: "Shares" },
+  { href: "/shares/Gu_Eric_Resume_8_1_2026.pdf", label: "Resume", external: true },
+];
 ---
 
 <RootLayout title="Eric Gu" description="Projects, cooking, and more">
-  <div class="page-container-home">
-    <section class="home-activity-stage">
-      <h2 class="sr-only">What I'm Involved In</h2>
-      <ActivityGraph activities={activities} title="Hi! :)" />
-      <button
-        type="button"
-        class="home-scroll-button"
-        aria-label="Scroll to description"
-        onclick="document.getElementById('home-intro')?.scrollIntoView({ behavior: 'smooth' })"
-      >
-        v
-      </button>
-    </section>
+  <section class="home-activity-stage">
+    <h2 class="sr-only">What I'm Involved In</h2>
+    <ActivityGraph activities={activities} title="Hi! :)" />
+    <button
+      type="button"
+      class="home-scroll-button btn btn-ghost btn-square btn-lg text-base-content/60 hover:text-primary"
+      aria-label="Scroll to description"
+      onclick="document.getElementById('home-intro')?.scrollIntoView({ behavior: 'smooth' })"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-8" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" aria-hidden="true">
+        <path d="M5 9l7 7 7-7" />
+      </svg>
+    </button>
+  </section>
 
-    <section id="home-intro" class="home-intro">
-      <div class="home-intro-copy">
-        <p>
+  <div class="page-container-home">
+    <section id="home-intro" class="grid scroll-mt-8 gap-6 md:grid-cols-12 md:gap-12">
+      <div class="md:col-span-8">
+        <p class="text-lg leading-relaxed text-base-content/80">
           I'm Eric, a junior at UC Berkeley double majoring in mechanical
           engineering and electrical engineering & computer science (EECS). I
           enjoy all things mechatronics, including robots, drones, and 3D
-          printers. When I'm not locked away in Etcheverry Hall, Supernode, or
+          printers. When I'm not locked away in Etcheverry Hall, Supernode, the UAVs lab, or
           the Open Computing Facility, you can find me baking, biking, building
-          random stuff, and working on my homelab. I also like experimenting 
+          random stuff, and working on my homelab. I also like experimenting
           with photography and digital art, though I'm not very good at either.
         </p>
       </div>
-      <nav class="home-intro-nav" aria-label="Main navigation">
-        <a href="/projects" class={buttonVariants({ variant: "project" })}
-          >Projects</a
-        >
-        <a href="/cooking" class={buttonVariants({ variant: "outline" })}
-          >Cooking</a
-        >
-        <a href="/shares" class={buttonVariants({ variant: "outline" })}
-          >Shares</a
-        >
-        <a
-          href="/shares/Gu_Eric_Resume_8_1_2026.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          class={buttonVariants({ variant: "outline" })}>Resume</a
-        >
+      <nav class="flex flex-wrap gap-2 md:col-span-4 md:flex-col md:items-stretch" aria-label="Main navigation">
+        {links.map((link) => (
+          <a
+            href={link.href}
+            class:list={[
+              "btn justify-between gap-6 font-semibold",
+              link.primary ? "btn-primary" : "btn-soft btn-primary",
+            ]}
+            {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+          >
+            {link.label}
+            <span aria-hidden="true">{link.external ? "↗" : "→"}</span>
+          </a>
+        ))}
       </nav>
     </section>
 
-    <section class="mt-16">
+    <section class="mt-20">
       {
         buddyBoxData ? (
-          <>
-            <div class="flex flex-wrap justify-center items-center gap-4 sm:gap-5">
-              {buddyBoxData.items.map((item) => (
-                <a
-                  href={item.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="inline-flex items-center justify-center transition-opacity hover:opacity-90"
-                  aria-label={item.alt}
-                  title={item.alt}
-                >
-                  <div
-                    class="w-[158px] sm:w-[176px]"
-                    style="aspect-ratio: 88 / 31;"
-                  >
-                    <img
-                      src={item.image}
-                      alt={item.alt}
-                      style={{ imageRendering: "pixelated", borderRadius: "0" }}
-                      width="176"
-                      height="62"
-                      loading="lazy"
-                      decoding="async"
-                      sizes="(max-width: 640px) 158px, 176px"
-                      class="w-full h-full object-contain"
-                    />
-                  </div>
-                </a>
-              ))}
-            </div>
-          </>
+          <div class="flex flex-wrap items-center justify-center gap-3">
+            {buddyBoxData.items.map((item) => (
+              <a
+                href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex transition-opacity hover:opacity-80"
+                aria-label={item.alt}
+                title={item.alt}
+              >
+                <div class="w-[158px] sm:w-[176px]" style="aspect-ratio: 88 / 31;">
+                  <img
+                    src={item.image}
+                    alt={item.alt}
+                    style={{ imageRendering: "pixelated" }}
+                    width="176"
+                    height="62"
+                    loading="lazy"
+                    decoding="async"
+                    sizes="(max-width: 640px) 158px, 176px"
+                    class="h-full w-full object-contain"
+                  />
+                </div>
+              </a>
+            ))}
+          </div>
         ) : (
-          <p class="text-muted-foreground">
-            Add buddy box content in src/content/buddy-box/index.md
+          <p class="text-center text-base-content/60">
+            fwiends
           </p>
         )
       }
@@ -102,89 +103,34 @@ const buddyBoxData = buddyBox[0]?.data;
 <style>
   .home-activity-stage {
     position: relative;
-    width: 100vw;
-    max-width: none;
-    min-height: calc(100vh - 3rem);
-    min-height: calc(100svh - 3rem);
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
+    display: grid;
+    place-items: center;
+    height: 100vh;
+    height: 100svh;
+    min-height: 26rem;
+    padding: 4.5rem 1rem;
   }
 
   .home-activity-stage :global(.activity-graph-shell) {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: min(calc(100% - 2rem), 36rem);
-    transform: translate(-50%, -50%);
+    width: min(100%, calc((100svh - 9rem) * 0.8), 52rem);
+    min-width: 17rem;
+  }
+
+  @media (orientation: portrait) {
+    .home-activity-stage :global(.activity-graph-shell) {
+      width: min(100%, calc((100svh - 9rem) * 2 / 3), 64rem);
+    }
   }
 
   .home-scroll-button {
     position: absolute;
-    bottom: 3rem;
+    bottom: max(1rem, env(safe-area-inset-bottom));
     left: 50%;
     transform: translateX(-50%);
-    border: 0;
-    padding: 0.25rem 0.75rem;
-    color: oklch(38% 0.025 248);
-    background: transparent;
-    font-size: 3rem;
-    line-height: 1;
-    cursor: pointer;
-    transition:
-      color 0.2s ease,
-      transform 0.2s ease;
   }
 
   .home-scroll-button:hover,
   .home-scroll-button:focus-visible {
-    color: oklch(42% 0.09 250);
     transform: translate(-50%, 0.15rem);
-  }
-
-  .home-intro {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 3rem;
-    border-top: 1px solid oklch(58% 0.025 248);
-    padding: 3rem 0;
-  }
-
-  .home-intro-copy {
-    max-width: 42rem;
-    color: oklch(38% 0.025 248);
-    font-size: 1.05rem;
-    line-height: 1.7;
-  }
-
-  .home-intro-nav {
-    display: flex;
-    flex: 0 0 auto;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    gap: 0.75rem;
-  }
-
-  @media (orientation: landscape) {
-    .home-intro-nav {
-      flex-direction: column;
-      align-items: stretch;
-    }
-  }
-
-  @media (max-width: 640px) {
-    .home-activity-stage :global(.activity-graph-shell) {
-      width: min(calc(100% - 1rem), 24rem);
-    }
-
-    .home-intro {
-      align-items: flex-start;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .home-intro-nav {
-      justify-content: flex-start;
-    }
   }
 </style>

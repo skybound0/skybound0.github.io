@@ -4,8 +4,8 @@ date: "2025"
 description: Overhead hoist transport concept for semiconductor fabs for the Spring 2025 Berkeley ASME CADathon
 image: /projects/epsilone.webp
 imageAspectRatio: 4/3
-tags:
-  - Autodesk Fusion
+categories:
+  - Design
 ---
 
 This was designed in a team of four as part of the Spring 2025 Berkeley ASME CADathon. It is more of an exercise in CAD than anything else.

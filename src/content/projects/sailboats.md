@@ -4,12 +4,8 @@ date: "2025"
 description: Three generations of autonomous sailboats for the Theoretical and Applied Fluid Dynamics Laboratory
 image: /projects/tina3.webp
 imageAspectRatio: 3/4
-tags:
-  - Autodesk Fusion
-  - Digi XBee
-  - Water Ingress Protection
-  - Hardware Integration
-  - 3D Printing
+categories:
+  - Robots
 ---
 
 These boats were my work at the Theoretical and Applied Fluid Dynamics Laboratory at UC Berkeley under Professor Reza Alam. I designed the mechanical architecture and all individual components for three generations of autonomous sailboats. I also performed electrical and software integration, manufacturing, and extensive testing.

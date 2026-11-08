@@ -1,7 +1,7 @@
 ---
 import RootLayout from '../layouts/RootLayout.astro';
 import { getCollection } from 'astro:content';
-import ProjectFilterGrid from '../components/ProjectFilterGrid';
+import ProjectGrid from '../components/ProjectGrid.astro';
 
 const projects = (await getCollection('projects')).filter((project) => !project.data.draft);
 
@@ -42,16 +42,16 @@ const mappedProjects = projects.map((project) => ({
 	description: project.data.description,
 	image: project.data.images?.[0] || project.data.image,
 	imageAspectRatio: project.data.imageAspectRatio || project.data.cardAspectRatio,
-	tags: project.data.tags || [],
+	categories: project.data.categories,
 }));
-
-const initialTag = Astro.url.searchParams.get('tag') || '';
 ---
 
 <RootLayout title="Projects | Eric Gu" description="What I've been working on">
-	<div class="page-container-narrow">
-		<h1 class="page-title">Projects</h1>
-		<p class="page-subtitle">What I've been working on</p>
-		<ProjectFilterGrid client:load projects={mappedProjects} initialTag={initialTag} />
+	<div class="page-container">
+		<header class="page-header">
+			<h1 class="page-title">Projects</h1>
+			<p class="page-subtitle">What I've been working on</p>
+		</header>
+		<ProjectGrid projects={mappedProjects} />
 	</div>
 </RootLayout>

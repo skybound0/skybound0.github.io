@@ -1,0 +1,24 @@
+---
+interface Props {
+	categories: string[];
+	class?: string;
+	onTint?: boolean;
+}
+
+const { categories, class: className, onTint = false } = Astro.props;
+---
+
+{categories.length > 0 && (
+	<ul class:list={['flex flex-wrap gap-1.5', className]} aria-label="Categories">
+		{categories.map((category) => (
+			<li
+				class:list={[
+					'badge border-0 font-medium text-primary',
+					onTint ? 'badge-sm bg-base-100' : 'bg-secondary',
+				]}
+			>
+				{category}
+			</li>
+		))}
+	</ul>
+)}

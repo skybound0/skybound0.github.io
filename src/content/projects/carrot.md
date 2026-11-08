@@ -4,10 +4,8 @@ date: "2026"
 description: Audio recorder with playback for my HOPE DeCal final project
 image: /projects/carrot1.webp
 imageAspectRatio: 1/1
-tags:
-  - KiCAD
-  - C++
-  - OnShape
+categories:
+  - PCBs
 ---
 
 Created as part of a team for the Hands-On PCB Engineering DeCal course.

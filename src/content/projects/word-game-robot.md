@@ -4,13 +4,8 @@ date: Ongoing
 description: CoreXY stylus-manipulator to play GamePigeon word games
 image: /projects/wgr.webp
 imageAspectRatio: 3/2
-tags:
-  - Autodesk Fusion
-  - OpenCV
-  - Python
-  - Klipper
-  - Motion System Design
-  - 3D Printing
+categories:
+  - Motion
 ---
 
 My friend and I struggle to beat another friend at the word games on GamePigeon, so we're building a CoreXY stylus-manipulator to do it for us.

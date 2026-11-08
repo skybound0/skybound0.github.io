@@ -180,21 +180,21 @@ for (const node of nodes) {
                 <img
                   src={data.logo}
                   alt={data.logoAlt ?? `${data.organization} logo`}
-                  class="h-full w-full object-contain rounded-none"
+                  class="h-full w-full object-contain "
                   loading="eager"
                   decoding="async"
                 />
               ) : (
-                <span class="node-fallback glass">{node.initials}</span>
+                <span class="node-fallback">{node.initials}</span>
               )}
             </span>
 
             <span class={`node-tooltip ${horizontalClass} ${verticalClass}`} role="presentation">
-              <strong class="block text-sm leading-tight text-foreground">{data.organization}</strong>
-              <span class="mt-1 block text-xs text-foreground">{data.role}</span>
-              <span class="mt-1 block text-[11px] text-muted-foreground">{data.date}</span>
+              <strong class="block text-sm leading-tight text-base-content">{data.organization}</strong>
+              <span class="mt-1 block text-xs text-base-content">{data.role}</span>
+              <span class="mt-1 block text-[11px] text-base-content/60">{data.date}</span>
               {data.notes && data.notes.length > 0 && (
-                <ul class="mt-2 space-y-1 text-[11px] leading-snug text-muted-foreground">
+                <ul class="mt-2 space-y-1 text-[11px] leading-snug text-base-content/60">
                   {data.notes.map((note) => <li>{note}</li>)}
                 </ul>
               )}
@@ -204,13 +204,14 @@ for (const node of nodes) {
       })}
     </div>
   ) : (
-    <p class="text-muted-foreground">No activities loaded yet.</p>
+    <p class="text-base-content/60">No activities loaded yet.</p>
   )}
 </div>
 
 <style>
   .activity-graph-shell {
     position: relative;
+    container-type: inline-size;
     width: min(100%, 36rem);
     margin: 0 auto;
     overflow: visible;
@@ -220,7 +221,13 @@ for (const node of nodes) {
     position: relative;
     aspect-ratio: 1 / 1;
     width: 100%;
-    min-height: clamp(20rem, 48vw, 34rem);
+  }
+
+  /* Portrait screens: a taller graph spreads the logos into the extra height. */
+  @media (orientation: portrait) {
+    .activity-graph {
+      aspect-ratio: 2 / 3;
+    }
   }
 
   .activity-graph-title {
@@ -229,9 +236,10 @@ for (const node of nodes) {
     left: 50%;
     z-index: 110;
     margin: 0;
-    color: oklch(42% 0.09 250);
-    font-size: clamp(3.75rem, 8vw, 6rem);
-    font-weight: 700;
+    color: var(--color-primary);
+    font-size: 14cqi;
+    font-weight: 800;
+    letter-spacing: -0.03em;
     line-height: 1;
     white-space: nowrap;
     transform: translate(-50%, -50%);
@@ -241,12 +249,10 @@ for (const node of nodes) {
   .activity-node {
     position: absolute;
     transform: translate(-50%, -50%);
-    width: var(--node-size);
-    height: var(--node-size);
-    max-width: 9rem;
-    max-height: 9rem;
-    min-width: 4rem;
-    min-height: 4rem;
+    width: calc(var(--node-size) * 0.85);
+    height: auto;
+    aspect-ratio: 1;
+    min-width: 2.5rem;
     z-index: var(--node-z);
     display: grid;
     place-items: center;
@@ -273,13 +279,14 @@ for (const node of nodes) {
   .node-fallback {
     width: 100%;
     height: 100%;
-    border-radius: 0.5rem;
+    border-radius: var(--radius-box);
     display: grid;
     place-items: center;
     font-size: clamp(0.72rem, 0.52rem + 0.45vw, 0.95rem);
     font-weight: 700;
     letter-spacing: 0.04em;
-    color: oklch(24% 0.025 248);
+    color: var(--color-secondary-content);
+    background: var(--color-secondary);
   }
 
   .node-tooltip {
@@ -289,9 +296,9 @@ for (const node of nodes) {
     width: max-content;
     max-width: min(15rem, 70vw);
     padding: 0.65rem 0.8rem;
-    border: 1px solid oklch(70% 0.025 248);
-    border-radius: 0.5rem;
-    background: oklch(96% 0.012 248);
+    border: 1px solid var(--color-base-300);
+    border-radius: var(--radius-box);
+    background: var(--color-base-100);
     transform: translate(-50%, 0.35rem);
     pointer-events: none;
     opacity: 0;
@@ -316,8 +323,6 @@ for (const node of nodes) {
   }
 
   @media (max-width: 640px) {
-    .activity-graph-shell { width: min(100%, 24rem); }
-    .activity-graph { min-height: 20rem; }
     .node-tooltip { max-width: min(12rem, 62vw); }
   }
 </style>
@@ -330,9 +335,18 @@ for (const node of nodes) {
     const nodes = [...graph.querySelectorAll<HTMLElement>('[data-activity-node]')];
     if (!title || nodes.length === 0) return;
 
-    const margin = 64;
-    const iconGap = 32;
     const graphRect = graph.getBoundingClientRect();
+    // Spacing scales with the graph so small (phone) and large (desktop) layouts look alike.
+    const margin = graphRect.width * 0.08;
+    const iconGap = graphRect.width * 0.04;
+
+    // Start from the server-computed layout each time so resizes don't accumulate drift.
+    for (const node of nodes) {
+      node.dataset.baseLeft ??= node.style.left;
+      node.dataset.baseTop ??= node.style.top;
+      node.style.left = node.dataset.baseLeft;
+      node.style.top = node.dataset.baseTop;
+    }
     const titleRect = title.getBoundingClientRect();
     const keepout = {
       left: titleRect.left - graphRect.left - margin,
@@ -341,7 +355,7 @@ for (const node of nodes) {
       bottom: titleRect.bottom - graphRect.top + margin,
     };
 
-    for (let pass = 0; pass < 8; pass += 1) {
+    for (let pass = 0; pass < 40; pass += 1) {
       let moved = false;
 
       for (const node of nodes) {
@@ -400,6 +414,27 @@ for (const node of nodes) {
           moved = true;
         }
       }
+
+      // Keep every node fully inside the graph after nudging.
+
+      for (const node of nodes) {
+
+        const rect = node.getBoundingClientRect();
+
+        const halfX = (rect.width / 2 / graphRect.width) * 100;
+
+        const halfY = (rect.height / 2 / graphRect.height) * 100;
+
+        const left = Number.parseFloat(node.style.left) || 50;
+
+        const top = Number.parseFloat(node.style.top) || 50;
+
+        node.style.left = `${Math.min(100 - halfX, Math.max(halfX, left))}%`;
+
+        node.style.top = `${Math.min(100 - halfY, Math.max(halfY, top))}%`;
+
+      }
+
 
       if (!moved) break;
     }
