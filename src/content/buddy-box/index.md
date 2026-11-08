@@ -12,6 +12,9 @@ items:
   - image: /buttons/jaysa.net.png
     link: https://jaysa.net
     alt: jaysa
+  - image: /buttons/lukevim.png
+    link: https://lukegonsalves.com/
+    alt: lukegon
   - image: /buttons/ocf2.png
     link: https://ocf.io
     alt: Open Computing Facility
