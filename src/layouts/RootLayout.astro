@@ -8,11 +8,20 @@ interface Props {
 
 const { title = 'Eric Gu', description = 'Projects, cooking, and more' } =
 	Astro.props;
-const isHome = Astro.url.pathname === '/';
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isHome = pathname === '/';
+
+const navItems = [
+	{ href: '/projects', label: 'Projects' },
+	{ href: '/cooking', label: 'Cooking' },
+	{ href: '/shares', label: 'Shares' },
+];
+
+const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="skybound">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -21,69 +30,45 @@ const isHome = Astro.url.pathname === '/';
 		<link rel="icon" href="/favicon.ico" sizes="any" />
 		<link rel="shortcut icon" href="/favicon.ico" />
 	</head>
-	<body>
-		{!isHome && <nav
-			class="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background"
-		>
-			<div class="container mx-auto px-4 py-3 sm:py-4 flex items-center justify-center">
-				{/* Desktop Navigation */}
-				<div class="hidden sm:flex items-center gap-1">
-					<a
-						href="/"
-						class="px-4 py-2 text-sm font-medium rounded-md text-muted-foreground hover:text-foreground hover:bg-muted"
-					>
-						Home
-					</a>
-					<a
-						href="/projects"
-						class="px-4 py-2 text-sm font-medium rounded-md text-muted-foreground hover:text-foreground hover:bg-muted"
-					>
-						Projects
-					</a>
-					<a
-						href="/cooking"
-						class="px-4 py-2 text-sm font-medium rounded-md text-muted-foreground hover:text-foreground hover:bg-muted"
-					>
-						Cooking
-					</a>
-					<a
-						href="/shares"
-						class="px-4 py-2 text-sm font-medium rounded-md text-muted-foreground hover:text-foreground hover:bg-muted"
-					>
-						Shares
-					</a>
-				</div>
+	<body class="flex min-h-screen flex-col">
+		{!isHome && (
+			<header class="sticky top-0 z-50 bg-base-100">
+				<nav class="navbar mx-auto min-h-14 py-0 max-w-5xl px-5 sm:px-8" aria-label="Main navigation">
+					<div class="flex-1">
+						<a href="/" class="text-base font-bold tracking-tight hover:text-primary">
+							Eric Gu
+						</a>
+					</div>
+					<ul class="flex items-center gap-1 sm:gap-2">
+						{navItems.map((item) => (
+							<li>
+								<a
+									href={item.href}
+									class:list={[
+										'inline-flex h-14 items-center border-b-2 px-2 sm:px-3 text-sm font-medium transition-colors',
+										isActive(item.href)
+											? 'border-primary text-primary'
+											: 'border-transparent text-base-content/70 hover:text-base-content',
+									]}
+									aria-current={isActive(item.href) ? 'page' : undefined}
+								>
+									{item.label}
+								</a>
+							</li>
+						))}
+					</ul>
+				</nav>
+			</header>
+		)}
 
-				{/* Mobile Navigation */}
-				<div class="sm:hidden flex items-center justify-center gap-4 text-sm">
-					<a href="/" class="text-muted-foreground hover:text-foreground">
-						Home
-					</a>
-					<a href="/projects" class="text-muted-foreground hover:text-foreground">
-						Projects
-					</a>
-					<a href="/cooking" class="text-muted-foreground hover:text-foreground">
-						Cooking
-					</a>
-					<a href="/shares" class="text-muted-foreground hover:text-foreground">
-						Shares
-					</a>
-				</div>
-			</div>
-		</nav>}
-
-		<main class={isHome ? '' : 'pt-20'}>
+		<main class="flex-1">
 			<slot />
 		</main>
 
-		{/* Footer */}
-		<footer
-			class="border-t border-border bg-background mt-16"
-		>
-			<div class="container mx-auto px-4 py-6">
-				<div class="flex items-center justify-center gap-8 text-base text-muted-foreground">
-					<div class="text-center">© 2025 Eric Gu</div>
-				</div>
+		<footer class="bg-base-100">
+			<div class="mx-auto flex max-w-5xl items-center justify-between gap-4 px-5 py-6 sm:px-8">
+				<span class="meta">© 2025 Eric Gu</span>
+				<a href="#" class="meta hover:text-primary">Top ↑</a>
 			</div>
 		</footer>
 	</body>

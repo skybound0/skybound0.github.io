@@ -2,11 +2,9 @@
 title: Auto-Bed Clearing 3D Printer
 date: Ongoing
 description: A bed-clearing system for continuous FDM printing
-tags:
-  - Autodesk Inventor
-  - Klipper
-  - Motion System Design
-  - 3D Printing
+categories:
+  - Motion
+  - Design
 ---
 
 I really like the idea of the [Vertigo MK1](https://automatedlayers.com/)'s auto-bed clearing system to enable continuous printing, but the printer itself does not fit my needs.

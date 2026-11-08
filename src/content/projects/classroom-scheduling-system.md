@@ -4,11 +4,8 @@ date: "2024"
 description: Scheduling webapp for bell schedules and classroom displays
 image: /projects/css.webp
 imageAspectRatio: 16/10
-tags:
-  - React
-  - OAuth2
-  - Raspberry Pi OS
-  - MySQL
+categories:
+  - Design
 ---
 
 Created as part of a team in the Software Engineering 2 class under Dr. Derek Miller.

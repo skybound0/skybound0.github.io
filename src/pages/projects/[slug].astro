@@ -2,6 +2,7 @@
 import RootLayout from '../../layouts/RootLayout.astro';
 import { getCollection, render } from 'astro:content';
 import { getDimensionsFromAspectRatio } from '../../lib/image';
+import CategoryList from '../../components/CategoryList.astro';
 
 export async function getStaticPaths() {
 	const projects = await getCollection('projects');
@@ -20,56 +21,49 @@ const imageDimensions = getDimensionsFromAspectRatio(imageAspectRatio, 1600);
 
 <RootLayout title={`${project.data.title} | Projects`} description={project.data.description || 'Project details'}>
 	<div class="page-container">
-		<a href="/projects" class="text-sm text-muted-foreground hover:text-primary">← Back to projects</a>
+		<a href="/projects" class="btn btn-ghost btn-sm -ml-3 mb-6 font-medium text-base-content/70 hover:text-primary">
+			← All projects
+		</a>
 
-		<div class="mt-6 rounded-[2rem] border border-border p-5 sm:p-8 glass-strong">
-			<div class="mb-4 text-center">
-				<h1 class="text-3xl sm:text-4xl font-bold gradient-text">{project.data.title}</h1>
-				<span class="text-muted-foreground text-sm">{project.data.date}</span>
+		<header class="page-header mb-10">
+			<p class="meta md:col-span-12">{project.data.date}</p>
+			<h1 class="page-title md:col-span-8">{project.data.title}</h1>
+			{project.data.description && (
+				<p class="page-subtitle md:col-span-4">{project.data.description}</p>
+			)}
+			<CategoryList categories={project.data.categories} class="md:col-span-12" />
+		</header>
+
+		{projectImages.length > 0 && (
+			<div class="mb-12 space-y-4">
+				{projectImages.map((image, index) => (
+					<div class="relative w-full overflow-hidden rounded-box bg-base-200" style={`aspect-ratio: ${imageAspectRatio};`}>
+						<img
+							src={image}
+							alt={`${project.data.title} image ${index + 1}`}
+							width={imageDimensions.width}
+							height={imageDimensions.height}
+							loading={index === 0 ? 'eager' : 'lazy'}
+							decoding="async"
+							fetchpriority={index === 0 ? 'high' : 'auto'}
+							sizes="(max-width: 768px) 100vw, 1100px"
+							class="h-full w-full object-cover"
+						/>
+					</div>
+				))}
 			</div>
+		)}
 
-			{project.data.tags && project.data.tags.length > 0 && (
-				<div class="flex flex-wrap justify-center gap-2 mb-6">
-					{project.data.tags.map((tag) => (
-						<a href={`/projects?tag=${encodeURIComponent(tag)}`} class="px-3 py-1 text-xs rounded-full border border-border bg-card text-foreground hover:border-primary/40 hover:text-primary">
-							{tag}
-						</a>
-					))}
-				</div>
-			)}
-
-			{projectImages.length > 0 && (
-				<div class="space-y-4 mb-8">
-					{projectImages.map((image, index) => (
-						<div class="relative w-full overflow-hidden rounded-xl border border-border" style={`aspect-ratio: ${imageAspectRatio};`}>
-							<img
-								src={image}
-								alt={`${project.data.title} image ${index + 1}`}
-								width={imageDimensions.width}
-								height={imageDimensions.height}
-								loading={index === 0 ? 'eager' : 'lazy'}
-								decoding="async"
-								fetchpriority={index === 0 ? 'high' : 'auto'}
-								fetchpriority={index === 0 ? 'high' : 'auto'}
-								sizes="(max-width: 768px) 100vw, 1100px"
-								class="w-full h-full object-cover"
-							/>
-						</div>
-					))}
-				</div>
-			)}
-
-			<article class="prose prose-invert max-w-none prose-headings:text-foreground prose-a:text-primary">
+		<div class="grid gap-8 md:grid-cols-12">
+			<article class="prose md:col-span-8 md:col-start-4">
 				<Content />
-			</article>
 
-			{project.data.list && project.data.list.length > 0 && (
-				<ul class="mt-6 space-y-1 text-muted-foreground">
-					{project.data.list.map((item) => (
-						<li class="flex gap-2"><span class="text-primary">•</span><span>{item}</span></li>
-					))}
-				</ul>
-			)}
+				{project.data.list && project.data.list.length > 0 && (
+					<ul>
+						{project.data.list.map((item) => <li>{item}</li>)}
+					</ul>
+				)}
+			</article>
 		</div>
 	</div>
 </RootLayout>

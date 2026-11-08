@@ -2,12 +2,8 @@
 title: Homelab
 date: 2021-2025
 description: TrueNAS SCALE home server stack
-tags:
-  - TrueNAS SCALE
-  - Debian
-  - Docker
-  - Nginx
-  - Home Assistant
+categories:
+  - Other
 ---
 
 My first "homelab" was an old computer running Debian with a Minecraft server, Jellyfin, Navidrome, and a few other random things for fun.

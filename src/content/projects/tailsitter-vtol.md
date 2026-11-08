@@ -2,12 +2,8 @@
 title: Tailsitter VTOL Quadcopter
 date: Ongoing
 description: A high performance tailsitter VTOL vehicle for UAVs@Berkeley
-tags:
-  - Autodesk Fusion
-  - Ansys Structures
-  - Composite Fiber Layups
-  - Vehicle Dynamics
-  - 3D Printing
+categories:
+  - Robots
 ---
 
 I'm leading the research and development of a high performance VTOL vehicle with UAVs@Berkeley.

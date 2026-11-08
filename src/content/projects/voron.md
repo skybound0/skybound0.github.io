@@ -3,12 +3,8 @@ title: Voron V2.4 3D Printer
 date: "2024"
 description: Heavily modified 350mm Voron 2.4 CoreXY FDM 3D printer
 image: /projects/miku1.webp
-tags:
-  - Mainsail
-  - Klipper
-  - Electronics Assembly
-  - Wiring Harnesses
-  - 3D Printing
+categories:
+  - Motion
 ---
 
 I wanted a 3D printer that I could bring to college, so I self-sourced and built a modified 350mm Voron 2.4 printer. It's been upgraded many times since first being built, including a Beacon probe, XOL toolhead, Papilio beltdrive extruder, and StealthMax air filter.
